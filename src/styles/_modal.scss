@@ -1,231 +1,290 @@
 //MODAL
-.maputnik-modal {
-  min-width: 350px;
-  max-width: 600px;
-  background-color: $color-black;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
-  z-index: 3;
+.maputnik-modal
+{
+    z-index: 3;
+
+    overflow: auto;
+
+    min-width: 350px;
+    max-width: 600px;
+    max-height: 750px;
+
+    background-color: $color-black;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
 }
 
-.maputnik-modal-section {
-  padding-top: $margin-3;
-  padding-bottom: $margin-3;
+.maputnik-modal-section
+{
+    /* Bug fix: <http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox> */
+    min-height: 0;
+    padding-top: $margin-3;
+    padding-bottom: $margin-3;
 
-  /* Bug fix: <http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox> */
-  min-height: 0;
-
-  @include flex-column;
-
-  flex-shrink: 0;
+    @include flex-column;
+    flex-shrink: 0;
 }
 
-.maputnik-modal-section--shrink {
-  flex-shrink: 1;
+.maputnik-modal-section--shrink
+{
+    flex-shrink: 1;
 }
 
-.maputnik-modal-header {
-  background-color: $color-gray;
-  padding: $margin-3;
+.maputnik-modal-header
+{
+    padding: $margin-3;
 
-  @include flex-row;
+    background-color: $color-gray;
+
+    @include flex-row;
 }
 
-.maputnik-modal-header-title {
-  font-size: $font-size-5;
-  margin: 0;
+.maputnik-modal-header-title
+{
+    font-size: $font-size-5;
+
+    margin: 0;
 }
 
-.maputnik-modal-header-toggle {
-  cursor: pointer;
+.maputnik-modal-header-toggle
+{
+    cursor: pointer;
 }
 
-.maputnik-modal-content {
-  padding: $margin-3;
-  max-height: 90vh;
+.maputnik-modal-content
+{
+    max-height: 90vh;
+    padding: $margin-3;
 
-  @include flex-column;
+    @include flex-column;
 }
 
-.maputnik-modal-header-space {
-  @extend .maputnik-space;
+.maputnik-modal-header-space
+{
+    @extend .maputnik-space;
 }
 
 //OVERLAY
-.maputnik-overlay-viewport {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  opacity: 0.875;
-  background-color: rgb(28, 31, 36);
+.maputnik-overlay-viewport
+{
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    opacity: .875;
+    background-color: rgb(28, 31, 36);
 }
 
-.maputnik-overlay {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
+.maputnik-overlay
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
-  @include flex-row;
+    align-items: center;
+    justify-content: center;
+    @include flex-row;
 }
 
 //OPEN MODAL
-.maputnik-upload-button {
-  @extend .maputnik-big-button;
+.maputnik-upload-button
+{
+    @extend .maputnik-big-button;
 }
 
-.maputnik-style-gallery-container {
-  overflow-y: scroll;
-  flex-shrink: 1;
+.maputnik-style-gallery-container
+{
+    overflow-y: scroll;
+
+    flex-shrink: 1;
 }
 
-.maputnik-public-style {
-  vertical-align: top;
-  margin-top: 10px;
-  margin-right: 10px;
-  background-color: $color-gray;
-  display: inline-block;
-  width: 180px;
-  font-size: $font-size-2;
-  color: $color-lowgray;
+.maputnik-public-style
+{
+    font-size: $font-size-2;
+
+    display: inline-block;
+
+    width: 180px;
+    margin-top: 10px;
+    margin-right: 10px;
+
+    vertical-align: top;
+
+    color: $color-lowgray;
+    background-color: $color-gray;
 }
 
-.maputnik-public-style-button {
-  background-color: $color-gray;
-  padding: $margin-3;
-  display: block;
+.maputnik-public-style-button
+{
+    display: block;
 
-  &:hover {
-    background-color: $color-midgray;
-  }
+    padding: $margin-3;
+
+    background-color: $color-gray;
+    &:hover
+    {
+        background-color: $color-midgray;
+    }
 }
 
-.maputnik-public-style-header {
-  @include flex-row;
+.maputnik-public-style-header
+{
+    @include flex-row;
 }
 
-.maputnik-public-style-thumbnail {
-  display: block;
-  margin-top: $margin-2;
-  width: 100%;
+.maputnik-public-style-thumbnail
+{
+    display: block;
+
+    width: 100%;
+    margin-top: $margin-2;
 }
 
-.maputnik-add-layer {
-  @extend .clearfix;
+.maputnik-add-layer
+{
+    @extend .clearfix;
 }
 
 //ADD MODAL
-.maputnik-add-layer-button {
-  @extend .maputnik-big-button;
+.maputnik-add-layer-button
+{
+    display: inline-block;
+    float: right;
 
-  margin-right: $margin-3;
-  float: right;
-  display: inline-block;
-  margin-top: 3;
-  margin-bottom: $margin-3;
-  text-align: right;
+    margin-top: 3;
+    margin-right: $margin-3;
+    margin-bottom: $margin-3;
+
+    text-align: right;
+
+    @extend .maputnik-big-button;
 }
 
 //SOURCE MODAL
-.maputnik-public-source {
-  vertical-align: top;
-  margin-top: 1.5%;
-  margin-right: 1.5%;
-  background-color: $color-gray;
-  width: 48.5%;
-  display: inline-block;
+.maputnik-public-source
+{
+    display: inline-block;
+
+    width: 48.5%;
+    margin-top: 1.5%;
+    margin-right: 1.5%;
+
+    vertical-align: top;
+
+    background-color: $color-gray;
 }
 
-.maputnik-public-source-select {
-  padding: $margin-3;
-  font-size: $font-size-5;
-  color: $color-lowgray;
-  background-color: transparent;
+.maputnik-public-source-select
+{
+    font-size: $font-size-5;
 
-  @include flex-row;
+    padding: $margin-3;
+
+    color: $color-lowgray;
+    background-color: transparent;
+
+    @include flex-row;
 }
 
-.maputnik-public-source-name {
-  font-weight: 700;
+.maputnik-public-source-name
+{
+    font-weight: 700;
 }
 
-.maputnik-public-source-id {
-  font-weight: 400;
+.maputnik-public-source-id
+{
+    font-weight: 400;
 }
 
-.maputnik-active-source-type-editor {
-  min-width: 500px;
+.maputnik-active-source-type-editor
+{
+    min-width: 500px;
 }
 
-.maputnik-active-source-type-editor-header {
-  background-color: $color-gray;
-  color: $color-lowgray;
-  padding: $margin-2;
+.maputnik-active-source-type-editor-header
+{
+    padding: $margin-2;
 
-  @include flex-row;
+    color: $color-lowgray;
+    background-color: $color-gray;
+
+    @include flex-row;
 }
 
-.maputnik-active-source-type-editor-header-id {
-  font-weight: 700;
-  line-height: 2;
-  font-size: $font-size-5;
+.maputnik-active-source-type-editor-header-id
+{
+    font-size: $font-size-5;
+    font-weight: 700;
+    line-height: 2;
 }
 
-.maputnik-active-source-type-editor-content {
-  border-color: $color-gray;
-  border-width: 2px;
-  border-style: solid;
-  padding: $margin-2;
+.maputnik-active-source-type-editor-content
+{
+    padding: $margin-2;
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: $color-gray;
 }
 
-.maputnik-add-source {
-  @extend .clearfix;
+.maputnik-add-source
+{
+    @extend .clearfix;
 }
 
-.maputnik-add-source-button {
-  @extend .maputnik-big-button;
+.maputnik-add-source-button
+{
+    display: inline-block;
+    float: right;
 
-  display: inline-block;
-  margin-top: 0;
-  margin-right: $margin-3;
-  float: right;
+    margin-top: 0;
+    margin-right: $margin-3;
+
+    @extend .maputnik-big-button;
 }
 
 //EXPORT MODAL
-.maputnik-export-gist {
-  font-size: $font-size-6;
-
-  .maputnik-input-block {
-    margin-left: 0;
-    margin-right: 0;
-
-    label {
-      vertical-align: middle;
+.maputnik-export-gist
+{
+    font-size: $font-size-6;
+    .maputnik-input-block
+    {
+        margin-right: 0;
+        margin-left: 0;
+        label
+        {
+            vertical-align: middle;
+        }
     }
-  }
-
-  span {
-    color: $color-lowgray;
-  }
+    span
+    {
+        color: $color-lowgray;
+    }
 }
 
-.maputnik-modal-error {
-  border: solid 2px #ef5350;
-  color: #ef5350;
-  padding: 8px;
-  padding-right: 32px;
-  position: relative;
+.maputnik-modal-error
+{
+    position: relative;
+
+    padding: 8px;
+    padding-right: 32px;
+
+    color: #ef5350;
+    border: solid 2px #ef5350;
 }
 
-.maputnik-modal-error-close {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  text-decoration: none;
-  color: #ef5350;
+.maputnik-modal-error-close
+{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    text-decoration: none;
+
+    color: #ef5350;
 }

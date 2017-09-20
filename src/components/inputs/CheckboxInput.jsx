@@ -1,14 +1,14 @@
 import React from 'react'
 
 class CheckboxInput extends React.Component {
-  static propTypes = {
-    value: React.PropTypes.bool.isRequired,
-    style: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-  }
+    static propTypes = {
+        value: React.PropTypes.bool.isRequired,
+        style: React.PropTypes.object,
+        onChange: React.PropTypes.func,
+    }
 
-  render() {
-    return <label className="maputnik-checkbox-wrapper">
+    render() {
+        return <label className="maputnik-checkbox-wrapper">
       <input
         className="maputnik-checkbox"
         type="checkbox"
@@ -24,7 +24,7 @@ class CheckboxInput extends React.Component {
         </svg>
       </div>
     </label>
-  }
+    }
 }
 
 export default CheckboxInput
