@@ -107,38 +107,37 @@ export default class Toolbar extends React.Component {
           onOpenToggle={this.toggleModal.bind(this, 'sources')}
       />
       <ToolbarLink
-        href={"https://github.com/maputnik/editor"}
         className="maputnik-toolbar-logo"
       >
         <img src={logoImage} alt="Maputnik" />
-        <h1>Maputnik</h1>
+        <h1>地图编辑器</h1>
       </ToolbarLink>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
         <OpenIcon />
-        <IconText>Open</IconText>
+        <IconText>加载样式</IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'export')}>
         <MdFileDownload />
-        <IconText>Export</IconText>
+        <IconText>导出</IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'sources')}>
         <SourcesIcon />
-        <IconText>Sources</IconText>
+        <IconText>数据源</IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'settings')}>
         <SettingsIcon />
-        <IconText>Style Settings</IconText>
+        <IconText>设置样式</IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.props.onInspectModeToggle}>
         <InspectionIcon />
         <IconText>
-          { this.props.inspectModeEnabled && <span>Map Mode</span> }
-          { !this.props.inspectModeEnabled && <span>Inspect Mode</span> }
+          { this.props.inspectModeEnabled && <span>地图模式</span> }
+          { !this.props.inspectModeEnabled && <span>检验模式</span> }
         </IconText>
       </ToolbarAction>
       <ToolbarLink href={"https://github.com/maputnik/editor/wiki"}>
         <HelpIcon />
-        <IconText>Help</IconText>
+        <IconText>帮助</IconText>
       </ToolbarLink>
     </div>
   }
