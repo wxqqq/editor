@@ -23,7 +23,12 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   module: {
-    loaders
+    loaders,
+    noParse: [
+      path.join(__dirname, '..', 'node_modules/openlayers/dist'),
+      path.join(__dirname, '..', 'node_modules/mapbox-gl/dist'),
+      path.join(__dirname, '..', 'node_modules/ajv/dist')
+    ]
   },
   node: {
     fs: "empty",
