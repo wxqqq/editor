@@ -12,13 +12,13 @@ import MdFileDownload from 'react-icons/lib/md/file-download'
 import style from '../../libs/style.js'
 import formatStyle from 'mapbox-gl-style-spec/lib/format'
 import GitHub from 'github-api'
-
+import {FormattedMessage} from 'react-intl'
 
 class Gist extends React.Component {
   static propTypes = {
     mapStyle: React.PropTypes.object.isRequired,
     onStyleChanged: React.PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -74,12 +74,12 @@ class Gist extends React.Component {
     </script>
   </body>
   </html>
-`
+`;
     const files = {
       "style.json": {
         content: mapStyleStr
       }
-    }
+    };
     if(preview) {
       files["index.html"] = {
         content: htmlStr
@@ -116,7 +116,7 @@ class Gist extends React.Component {
         ...this.props.mapStyle.metadata,
         [property]: value
       }
-    }
+    };
     this.props.onStyleChanged(changedStyle)
   }
 
@@ -175,9 +175,9 @@ class Gist extends React.Component {
 }
 
 function stripAccessTokens(mapStyle) {
-  const changedMetadata = { ...mapStyle.metadata }
-  delete changedMetadata['maputnik:mapbox_access_token']
-  delete changedMetadata['maputnik:openmaptiles_access_token']
+  const changedMetadata = { ...mapStyle.metadata };
+  delete changedMetadata['maputnik:mapbox_access_token'];
+  delete changedMetadata['maputnik:openmaptiles_access_token'];
   return {
     ...mapStyle,
     metadata: changedMetadata
@@ -190,7 +190,7 @@ class ExportModal extends React.Component {
     onStyleChanged: React.PropTypes.func.isRequired,
     isOpen: React.PropTypes.bool.isRequired,
     onOpenToggle: React.PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -209,9 +209,15 @@ class ExportModal extends React.Component {
     >
 
       <div className="maputnik-modal-section">
-        <h4>Download Style</h4>
+        <h4> <FormattedMessage
+          id="intl.Download Style"
+          defaultMessage={'Download Style'}
+        /></h4>
         <p>
-          Download a JSON style to your computer.
+          <FormattedMessage
+            id="intl.download"
+            defaultMessage={'download'}
+          />
         </p>
         <Button onClick={this.downloadStyle.bind(this)}>
           <MdFileDownload />

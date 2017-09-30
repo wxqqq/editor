@@ -21,7 +21,7 @@ import SettingsModal from './modals/SettingsModal'
 import ExportModal from './modals/ExportModal'
 import SourcesModal from './modals/SourcesModal'
 import OpenModal from './modals/OpenModal'
-
+import {FormattedMessage} from 'react-intl'
 import style from '../libs/style'
 
 function IconText(props) {
@@ -57,10 +57,10 @@ export default class Toolbar extends React.Component {
     // A dict of source id's and the available source layers
     sources: React.PropTypes.object.isRequired,
     onInspectModeToggle: React.PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isOpen: {
         settings: false,
@@ -115,30 +115,51 @@ export default class Toolbar extends React.Component {
       </ToolbarLink>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
         <OpenIcon />
-        <IconText>Open</IconText>
+        <IconText><FormattedMessage
+          id="intl.open"
+          defaultMessage={'open'}
+        /></IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'export')}>
         <MdFileDownload />
-        <IconText>Export</IconText>
+        <IconText><FormattedMessage
+          id="intl.Export"
+          defaultMessage={'Export'}
+        /></IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'sources')}>
         <SourcesIcon />
-        <IconText>Sources</IconText>
+        <IconText><FormattedMessage
+          id="intl.Sources"
+          defaultMessage={'Sources'}
+        /></IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.toggleModal.bind(this, 'settings')}>
         <SettingsIcon />
-        <IconText>Style Settings</IconText>
+        <IconText><FormattedMessage
+          id="intl.Style Settings"
+          defaultMessage={'Style Settings'}
+        /></IconText>
       </ToolbarAction>
       <ToolbarAction onClick={this.props.onInspectModeToggle}>
         <InspectionIcon />
         <IconText>
-          { this.props.inspectModeEnabled && <span>Map Mode</span> }
-          { !this.props.inspectModeEnabled && <span>Inspect Mode</span> }
+          { this.props.inspectModeEnabled && <span><FormattedMessage
+            id="intl.MapMode"
+            defaultMessage={'Map Mode'}
+          /></span> }
+          { !this.props.inspectModeEnabled && <span><FormattedMessage
+            id="intl.InspectMode"
+            defaultMessage={'Inspect Mode'}
+          /></span> }
         </IconText>
       </ToolbarAction>
       <ToolbarLink href={"https://github.com/maputnik/editor/wiki"}>
         <HelpIcon />
-        <IconText>Help</IconText>
+        <IconText><FormattedMessage
+          id="intl.help"
+          defaultMessage={'help'}
+        /></IconText>
       </ToolbarLink>
     </div>
   }

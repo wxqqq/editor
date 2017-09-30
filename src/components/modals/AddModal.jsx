@@ -10,7 +10,7 @@ import LayerTypeBlock from '../layers/LayerTypeBlock'
 import LayerIdBlock from '../layers/LayerIdBlock'
 import LayerSourceBlock from '../layers/LayerSourceBlock'
 import LayerSourceLayerBlock from '../layers/LayerSourceLayerBlock'
-
+import {FormattedMessage} from 'react-intl'
 class AddModal extends React.Component {
   static propTypes = {
     layers: React.PropTypes.array.isRequired,
@@ -20,44 +20,45 @@ class AddModal extends React.Component {
 
     // A dict of source id's and the available source layers
     sources: React.PropTypes.object.isRequired,
-  }
+  };
 
   addLayer() {
-    const changedLayers = this.props.layers.slice(0)
+    const changedLayers = this.props.layers.slice(0);
     const layer = {
       id: this.state.id,
       type: this.state.type,
-    }
+    };
 
-    if(this.state.type !== 'background') {
-      layer.source = this.state.source
-      if(this.state.type !== 'raster' && this.state['source-layer']) {
+    if (this.state.type !== 'background') {
+      layer.source = this.state.source;
+      if (this.state.type !== 'raster' && this.state['source-layer']) {
         layer['source-layer'] = this.state['source-layer']
       }
     }
 
-    changedLayers.push(layer)
+    changedLayers.push(layer);
 
-    this.props.onLayersChange(changedLayers)
+    this.props.onLayersChange(changedLayers);
     this.props.onOpenToggle(false)
   }
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       type: 'fill',
       id: '',
-    }
+    };
 
-    if(props.sources.length > 0) {
-      this.state.source = Object.keys(this.props.sources)[0]
+    if (props.sources.length > 0) {
+      this.state.source = Object.keys(this.props.sources)[0];
       this.state['source-layer'] = this.props.sources[this.state.source][0]
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const sourceIds = Object.keys(nextProps.sources)
-    if(!this.state.source && sourceIds.length > 0) {
+
+    const sourceIds = Object.keys(nextProps.sources);
+    if (!this.state.source && sourceIds.length > 0) {
       this.setState({
         source: sourceIds[0],
         'source-layer': this.state['source-layer'] || (nextProps.sources[sourceIds[0]] || [])[0]
@@ -96,7 +97,10 @@ class AddModal extends React.Component {
       />
       }
       <Button className="maputnik-add-layer-button" onClick={this.addLayer.bind(this)}>
-        Add Layer
+        <FormattedMessage
+          id="intl.Add Layer"
+          defaultMessage={'add Layer'}
+        />
       </Button>
       </div>
     </Modal>

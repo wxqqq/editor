@@ -1,6 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import DocLabel from '../fields/DocLabel'
+import {FormattedMessage} from 'react-intl'
 
 /** Wrap a component with a label */
 class InputBlock extends React.Component {
@@ -13,10 +14,10 @@ class InputBlock extends React.Component {
     action: React.PropTypes.element,
     children: React.PropTypes.element.isRequired,
     style: React.PropTypes.object,
-  }
+  };
 
   onChange(e) {
-    const value = e.target.value
+    const value = e.target.value;
     return this.props.onChange(value === "" ? null: value)
   }
 
@@ -30,14 +31,20 @@ class InputBlock extends React.Component {
       {this.props.doc &&
       <div className="maputnik-input-block-label">
         <DocLabel
-          label={this.props.label}
+          label=  {<FormattedMessage
+            id={"intl."+this.props.label}
+            defaultMessage={this.props.label}
+          />}
           doc={this.props.doc}
         />
       </div>
       }
       {!this.props.doc &&
       <label className="maputnik-input-block-label">
-        {this.props.label}
+        {<FormattedMessage
+          id={"intl."+this.props.label}
+          defaultMessage={this.props.label}
+        />}
       </label>
       }
       {this.props.action &&

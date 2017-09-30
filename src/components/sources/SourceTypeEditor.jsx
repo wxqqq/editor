@@ -9,7 +9,7 @@ class TileJSONSourceEditor extends React.Component {
     static propTypes = {
         source: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func.isRequired,
-    }
+    };
 
     render() {
 
@@ -20,7 +20,7 @@ class TileJSONSourceEditor extends React.Component {
                   ...this.props.source,
                   url: url
               })}
-          /> 
+          />
         </InputBlock>
     }
 }
@@ -29,11 +29,11 @@ class TileURLSourceEditor extends React.Component {
     static propTypes = {
         source: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func.isRequired,
-    }
+    };
 
     changeTileUrl(idx, value) {
-        const tiles = this.props.source.tiles.slice(0)
-        tiles[idx] = value
+        const tiles = this.props.source.tiles.slice(0);
+        tiles[idx] = value;
         this.props.onChange({
             ...this.props.source,
             tiles: tiles
@@ -41,10 +41,9 @@ class TileURLSourceEditor extends React.Component {
     }
 
     renderTileUrls() {
-        const prefix = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th']
-        const tiles = this.props.source.tiles || []
+        const prefix = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'];
+        const tiles = this.props.source.tiles || [];
 
-        console.log("===", tiles)
         return tiles.map((tileUrl, tileIndex) => {
             return <InputBlock key={tileIndex} label={prefix[tileIndex] + " Tile URL"} doc={GlSpec.source_tile.tiles.doc}>
         <StringInput
@@ -97,7 +96,7 @@ class GeoJSONSourceEditor extends React.Component {
     static propTypes = {
         source: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func.isRequired,
-    }
+    };
 
     render() {
         return <InputBlock label={"GeoJSON Data"} doc={GlSpec.source_geojson.data.doc}>
@@ -117,24 +116,24 @@ class SourceTypeEditor extends React.Component {
         mode: React.PropTypes.string.isRequired,
         source: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func.isRequired,
-    }
+    };
 
     render() {
         const commonProps = {
             source: this.props.source,
             onChange: this.props.onChange,
-        }
+        };
         switch (this.props.mode) {
             case 'geojson':
-                return <GeoJSONSourceEditor {...commonProps} />
+                return <GeoJSONSourceEditor {...commonProps} />;
             case 'tilejson_vector':
-                return <TileJSONSourceEditor {...commonProps} />
+                return <TileJSONSourceEditor {...commonProps} />;
             case 'tilexyz_vector':
-                return <TileURLSourceEditor {...commonProps} />
+                return <TileURLSourceEditor {...commonProps} />;
             case 'tilejson_raster':
-                return <TileJSONSourceEditor {...commonProps} />
+                return <TileJSONSourceEditor {...commonProps} />;
             case 'tilexyz_raster':
-                return <TileURLSourceEditor {...commonProps} />
+                return <TileURLSourceEditor {...commonProps} />;
             default:
                 return null
         }
