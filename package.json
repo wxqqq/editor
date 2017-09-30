@@ -48,6 +48,7 @@
     "react-height": "^3.0.0",
     "react-icon-base": "^2.0.4",
     "react-icons": "^2.2.1",
+    "react-intl": "^2.4.0",
     "react-motion": "^0.4.7",
     "react-sortable-hoc": "^0.4.5",
     "reconnecting-websocket": "^3.0.3",
