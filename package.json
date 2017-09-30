@@ -1,7 +1,7 @@
 {
-  "name": "maputnik",
-  "version": "1.0.1",
-  "description": "A MapboxGL visual style editor",
+  "name": " HEditor",
+  "version": "0.0.1",
+  "description": "海云地图可视化编辑器",
   "main": "''",
   "scripts": {
     "stats": "webpack --config config/webpack.production.config.js --profile --json > stats.json",
