@@ -35,6 +35,13 @@ const en_US = {
   'intl.Mapbox Access Token': 'Mapbox Access Token',
   'intl.OpenMapTiles Access Token': 'OpenMapTiles Access Token',
   'intl.Style Renderer': 'Style Renderer',
+  'intl.mbgljs': 'MapboxGL JS',
+  'intl.ol3': 'Open Layers 3',
+  'intl.geojson': 'GeoJSON',
+  'intl.tilejson_vector': 'Vector (TileJSON URL)',
+  'intl.tilexyz_vector': 'Vector (XYZ URLs)',
+  'intl.tilejson_raster': 'Raster (TileJSON URL)',
+  'intl.tilexyz_raster': 'Raster (XYZ URL)',
   //mode
   'intl.MapMode': "MapMode",
   'intl.InspectMode': "InspectMode",
@@ -44,13 +51,13 @@ const en_US = {
   'intl.Add Layer': "Add Layer",
   'intl.ID': "ID",
   'intl.Type': "Type",
-  'intl.Background': 'Background',
-  'intl.Fill': 'Fill',
-  'intl.Line': 'Line',
-  'intl.Symbol': 'Symbol',
-  'intl.Raster': 'Raster',
-  'intl.Circle': 'Circle',
-  'intl.FillExtrusion': 'Fill Extrusion',
+  'intl.background': 'Background',
+  'intl.fill': 'Fill',
+  'intl.line': 'Line',
+  'intl.symbol': 'Symbol',
+  'intl.raster': 'Raster',
+  'intl.circle': 'Circle',
+  'intl.fill-extrusion': 'Fill Extrusion',
   'intl.Source Layer': "Source Layer",
   "intl.Min Zoom": "Min Zoom",
   "intl.Max Zoom": "Max Zoom",
@@ -128,7 +135,10 @@ const en_US = {
   'intl.Miter': "Miter",
   'intl.Butt': "Butt",
   'intl.Miter limit': "Miter limit",
-  'intl.Round limit': "Round limit"
+  'intl.Round limit': "Round limit",
+  'intl.all': 'all',
+  'intl.none': 'none',
+  'intl.any': 'any'
 };
 
 export default en_US;

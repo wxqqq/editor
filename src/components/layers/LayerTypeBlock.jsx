@@ -15,34 +15,13 @@ class LayerTypeBlock extends React.Component {
     return <InputBlock label={"Type"} doc={GlSpec.layer.type.doc}>
       <SelectInput
         options={[
-          ['background',<FormattedMessage
-            id="intl.Background"
-            defaultMessage={'Background'}
-          />],
-          ['fill',<FormattedMessage
-            id="intl.Fill"
-            defaultMessage={'Fill'}
-          />],
-          ['line',<FormattedMessage
-            id="intl.Line"
-            defaultMessage={'Line'}
-          />],
-          ['symbol',<FormattedMessage
-            id="intl.Symbol"
-            defaultMessage={'Symbol'}
-          />],
-          ['raster',<FormattedMessage
-            id="intl.Raster"
-            defaultMessage={'Raster'}
-          />],
-          ['circle', <FormattedMessage
-            id="intl.Circle"
-            defaultMessage={'Circle'}
-          />],
-          ['fill-extrusion', <FormattedMessage
-            id="intl.FillExtrusion"
-            defaultMessage={'Fill Extrusion'}
-          />],
+          ['background', "Background"],
+          ['fill', "Fill"],
+          ['line', "Line"],
+          ['symbol', "Symbol"],
+          ['raster', "Raster"],
+          ['circle', "Circle"],
+          ['fill-extrusion', "Fill Extrusion"],
         ]}
         onChange={this.props.onChange}
         value={this.props.value}

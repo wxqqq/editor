@@ -16,7 +16,7 @@ const zh_CN = {
   'intl.Download Style': "下载样式",
   'intl.download': '下载json样式文件到本地',
   'intl.Save style': "保存样式",
-  'intl.Include preview':"包括预览",
+  'intl.Include preview': "包括预览",
   //Sources
   'intl.Source': "数据源",
   'intl.Sources': "数据源",
@@ -35,6 +35,13 @@ const zh_CN = {
   'intl.Mapbox Access Token': 'Mapbox许可',
   'intl.OpenMapTiles Access Token': 'OpenMapTIles许可',
   'intl.Style Renderer': '样式渲染器',
+  'intl.mbgljs': 'MapboxGL JS',
+  'intl.ol3': 'Open Layers 3',
+  'intl.geojson': 'GeoJSON',
+  'intl.tilejson_vector': 'Vector (TileJSON URL)',
+  'intl.tilexyz_vector': 'Vector (XYZ URLs)',
+  'intl.tilejson_raster': 'Raster (TileJSON URL)',
+  'intl.tilexyz_raster': 'Raster (XYZ URL)',
   //mode
   'intl.MapMode': "地图模式",
   'intl.InspectMode': "检查模式",
@@ -44,13 +51,13 @@ const zh_CN = {
   'intl.Add Layer': "增加图层",
   'intl.ID': "序号",
   'intl.Type': "类型",
-  'intl.Background': '背景',
-  'intl.Fill': '填充色',
-  'intl.Line': '线',
-  'intl.Symbol': '符号',
-  'intl.Raster': '栅格',
-  'intl.Circle': '圆',
-  'intl.FillExtrusion': '三维',
+  'intl.background': '背景',
+  'intl.fill': '填充色',
+  'intl.line': '线',
+  'intl.symbol': '符号',
+  'intl.raster': '栅格',
+  'intl.circle': '圆',
+  'intl.fill-extrusion': '三维',
   'intl.Source Layer': "源图层",
   "intl.Min Zoom": "最小缩放级别",
   "intl.Max Zoom": "最大缩放级别",
@@ -64,9 +71,9 @@ const zh_CN = {
   //Filter目录
   'intl.Filter': "过滤器",
   'intl.Compound Filter': "符合过滤器",
-  'intl.every filter matches':"每个过滤器都匹配",
-  'intl.no filter matches':"不使用过滤器匹配",
-  'intl.any filter matches':"任何过滤器都匹配",
+  'intl.every filter matches': "每个过滤器都匹配",
+  'intl.no filter matches': "不使用过滤器匹配",
+  'intl.any filter matches': "任何过滤器都匹配",
   //GeneralLayoutProperties
   'intl.Placement': "定位",
   'intl.Spacing': "间距",
@@ -90,7 +97,7 @@ const zh_CN = {
   'intl.Keep upright': "垂直放置",
   'intl.Transform': "大小写",
   'intl.Offset': "偏移",
-  'intl.Blur':"模糊",
+  'intl.Blur': "模糊",
   'intl.Optional': "可选项",
   //IconLayoutProperties
   'intl.Size': "大小",
@@ -113,10 +120,10 @@ const zh_CN = {
   //IconPaintProperties
   'intl.Paint properties': '填充属性',
   'intl.Width': "宽度",
-  'intl.Antialias':"抗锯齿",
+  'intl.Antialias': "抗锯齿",
   'intl.Dasharray': "点数组",
   'intl.Gap width': "间隔宽度",
-  'intl.Outline color':"边线颜色",
+  'intl.Outline color': "边线颜色",
   'intl.JSON Editor': "JSON编辑器",
   //Layout properties
   'intl.Layout properties': "布局属性",
@@ -128,6 +135,9 @@ const zh_CN = {
   'intl.Miter': "斜切",
   'intl.Butt': "",
   'intl.Miter limit': "斜度限制",
-  'intl.Round limit': "环绕限制"
+  'intl.Round limit': "环绕限制",
+  'intl.all': 'all',
+  'intl.none': 'none',
+  'intl.any': 'any'
 };
 export default zh_CN;
