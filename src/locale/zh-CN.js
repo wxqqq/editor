@@ -1,8 +1,8 @@
 /*
  * @Author: wxq
  * @Date:   2017-09-21 16:17:09
- * @Last Modified by:   wxq
- * @Last Modified time: 2017-09-21 16:18:51
+ * @Last Modified by:   hydata
+ * @Last Modified time: 2017-10-11 19:06:24
  */
 const zh_CN = {
   //open
@@ -51,13 +51,13 @@ const zh_CN = {
   'intl.Add Layer': "增加图层",
   'intl.ID': "序号",
   'intl.Type': "类型",
-  'intl.background': '背景',
-  'intl.fill': '填充色',
-  'intl.line': '线',
-  'intl.symbol': '符号',
-  'intl.raster': '栅格',
-  'intl.circle': '圆',
-  'intl.fill-extrusion': '三维',
+  'intl.background': 'background',
+  'intl.fill': 'fill',
+  'intl.line': 'line',
+  'intl.symbol': 'symbol',
+  'intl.raster': 'raster',
+  'intl.circle': 'circle',
+  'intl.fill-extrusion': 'fill-extrusion',
   'intl.Source Layer': "源图层",
   "intl.Min Zoom": "最小缩放级别",
   "intl.Max Zoom": "最大缩放级别",
@@ -65,9 +65,9 @@ const zh_CN = {
   'intl.Layer': "图层",
   'intl.General layout properties': "总体布局属性",
   'intl.Text layout properties': "文本布局属性",
-  'intl.Text paint properties': "文本打印属性",
+  'intl.Text paint properties': "文本绘制属性",
   'intl.Icon layout properties': "图标布局属性",
-  'intl.Icon paint properties': "图标打印属性",
+  'intl.Icon paint properties': "图标绘制属性",
   //Filter目录
   'intl.Filter': "过滤器",
   'intl.Compound Filter': "符合过滤器",
@@ -105,7 +105,7 @@ const zh_CN = {
   'intl.Text fit padding': "文本匹配填充",
   'intl.Image': "图像",
   //Text Paint Properties
-  'intl.Field': "领域",
+  'intl.Field': "标注字段",
   'intl.Font': "字体",
   'intl.Color': "颜色",
   'intl.Pattern': '图案',
