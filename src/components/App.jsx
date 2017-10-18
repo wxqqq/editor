@@ -1,6 +1,5 @@
 import React from 'react'
 import Mousetrap from 'mousetrap'
-
 import MapboxGlMap from './map/MapboxGlMap'
 import OpenLayers3Map from './map/OpenLayers3Map'
 import LayerList from './layers/LayerList'
@@ -11,32 +10,20 @@ import MessagePanel from './MessagePanel'
 import {downloadGlyphsMetadata, downloadSpriteMetadata} from '../libs/metadata'
 import styleSpec from '@mapbox/mapbox-gl-style-spec'
 import style from '../libs/style.js'
-import {
-  initialStyleUrl,
-  loadStyleUrl
-} from '../libs/urlopen'
-import {
-  undoMessages,
-  redoMessages
-} from '../libs/diffmessage'
-import {
-  loadDefaultStyle,
-  StyleStore
-} from '../libs/stylestore'
-import {
-  ApiStyleStore
-} from '../libs/apistore'
-import {
-  RevisionStore
-} from '../libs/revisions'
+import {initialStyleUrl, loadStyleUrl} from '../libs/urlopen'
+import {undoMessages, redoMessages} from '../libs/diffmessage'
+import {loadDefaultStyle, StyleStore} from '../libs/stylestore'
+import {ApiStyleStore} from '../libs/apistore'
+import {RevisionStore} from '../libs/revisions'
 import LayerWatcher from '../libs/layerwatcher'
 import tokens from '../config/tokens.json'
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
-import zh_CN from '../locale/zh-CN';    //导入 i18n 配置文件
+
+import zh_CN from '../locale/zh-CN';
 import en_US from '../locale/en-US';
 import {addLocaleData, IntlProvider} from 'react-intl';
-
+//导入 i18n 配置文件
 addLocaleData([...zh, ...en]);
 let messages = {};
 messages["en-US"] = en_US;
@@ -88,7 +75,7 @@ export default class App extends React.Component {
       vectorLayers: {},
       inspectModeEnabled: false,
       spec: styleSpec.latest,
-    }
+    };
 
 
     this.layerWatcher = new LayerWatcher({
@@ -139,6 +126,8 @@ export default class App extends React.Component {
   }
 
   onStyleChanged(newStyle, save = true) {
+
+    console.log(newStyle);
     if (newStyle.glyphs !== this.state.mapStyle.glyphs) {
       this.updateFonts(newStyle.glyphs)
     }
@@ -148,8 +137,8 @@ export default class App extends React.Component {
 
     const errors = styleSpec.validate(newStyle, styleSpec.latest)
     if (errors.length === 0) {
-      this.revisionStore.addRevision(newStyle)
-      if (save) this.saveStyle(newStyle)
+      this.revisionStore.addRevision(newStyle);
+      if (save) this.saveStyle(newStyle);
       this.setState({
         mapStyle: newStyle,
         errors: [],
@@ -222,7 +211,6 @@ export default class App extends React.Component {
         this.layerWatcher.analyzeMap(e.map)
       },
     };
-
     const metadata = this.state.mapStyle.metadata || {};
     const renderer = metadata['maputnik:renderer'] || 'mbgljs';
 
@@ -244,6 +232,7 @@ export default class App extends React.Component {
   }
 
   render() {
+
     const layers = this.state.mapStyle.layers || [];
     const selectedLayer = layers.length > 0 ? layers[this.state.selectedLayerIndex] : null;
     const metadata = this.state.mapStyle.metadata || {};

@@ -19,6 +19,8 @@ const zh_CN = {
   'intl.Include preview': "包括预览",
   //Sources
   'intl.Source': "数据源",
+  'intl.1st Tile URL':'1st Tile URL',
+  'intl.is TMS':'is TMS',
   'intl.Sources': "数据源",
   'intl.Active Sources': "主动源",
   'intl.Choose Public Source': "选择公共源",
