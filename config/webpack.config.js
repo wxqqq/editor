@@ -20,10 +20,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js','.css','.sass', '.scss', '.less', '.jsx']
   },
   module: {
-    loaders,
+    rules:loaders,
     noParse: [
       path.join(__dirname, '..', 'node_modules/openlayers/dist'),
       path.join(__dirname, '..', 'node_modules/mapbox-gl/dist'),
@@ -40,7 +40,6 @@ module.exports = {
     // do not print bundle build stats
     noInfo: true,
     // enable HMR
-    hot: true,
     // embed the webpack-dev-server runtime into the bundle
     inline: true,
     // serve index.html in place of 404 responses to allow HTML5 history
@@ -49,7 +48,7 @@ module.exports = {
     host: HOST
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Maputnik',

@@ -7,7 +7,7 @@ module.exports = [
   {
     test: /\.jsx?$/,
     exclude: /(.*node_modules(?![\/\\]@mapbox[\/\\]mapbox-gl-style-spec)|bower_components|public)/,
-    loader: 'babel',
+    loader: 'babel-loader',
     query: {
       presets: ['es2015', 'react'],
       plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
@@ -15,15 +15,15 @@ module.exports = [
   },
   {
     test: /\.(eot|ttf|woff|woff2)$/,
-    loader: 'file?name=fonts/[name].[ext]'
+    loader: 'file-loader?name=fonts/[name].[ext]'
   },
   {
     test: /\.ico$/,
-    loader: 'file?name=[name].[ext]'
+    loader: 'file-loader?name=[name].[ext]'
   },
   {
     test: /\.(svg|gif|jpg|png)$/,
-    loader: 'file?name=img/[name].[ext]'
+    loader: 'file-loader?name=img/[name].[ext]'
   },
   {
     test: /\.json$/,
@@ -36,8 +36,8 @@ module.exports = [
   {
     test: /[\/\\](node_modules|global|src)[\/\\].*\.css$/,
     loaders: [
-      'style?sourceMap',
-      'css'
+      'style-loader?sourceMap',
+      'css-loader'
     ]
   }
 ];
