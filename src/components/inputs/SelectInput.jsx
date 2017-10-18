@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedMessage} from 'react-intl'
+
 class SelectInput extends React.Component {
   static propTypes = {
     value: React.PropTypes.string.isRequired,
@@ -21,13 +21,7 @@ class SelectInput extends React.Component {
       value={this.props.value}
       onChange={e => this.props.onChange(e.target.value)}
     >
-      { options.map(([val, label]) =>
-
-        <option key={val} value={val}>
-          <FormattedMessage
-          id={"intl."+val}
-          defaultMessage={label}
-        /></option>) }
+      { options.map(([val, label]) => <option key={val} value={val}>{label}</option>) }
     </select>
   }
 }
