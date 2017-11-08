@@ -9,9 +9,12 @@ import CheckboxInput from '../inputs/CheckboxInput'
 import Button from '../Button'
 import Modal from './Modal'
 import MdFileDownload from 'react-icons/lib/md/file-download'
+import TiClipboard from 'react-icons/lib/ti/clipboard'
 import style from '../../libs/style.js'
 import GitHub from 'github-api'
 import {FormattedMessage} from 'react-intl'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
 
 class Gist extends React.Component {
   static propTypes = {
@@ -124,7 +127,7 @@ class Gist extends React.Component {
     const user = gist.user || 'anonymous';
     const preview = !!gist.files['index.html'];
     if(preview) {
-      return <span><a target="_blank" href={"https://bl.ocks.org/"+user+"/"+gist.id}>Preview</a>,{' '}</span>
+      return <span><a target="_blank" rel="noopener noreferrer" href={"https://bl.ocks.org/"+user+"/"+gist.id}>Preview</a>,{' '}</span>
     }
     return null;
   }
@@ -136,11 +139,21 @@ class Gist extends React.Component {
       return <p>Saving...</p>
     } else if(gist) {
       const user = gist.user || 'anonymous';
-      return <p>
-        Latest saved gist:{' '}
-        {this.renderPreviewLink(this)}
-        <a target="_blank" href={"https://gist.github.com/"+user+"/"+gist.id}>Source</a>
-      </p>
+      const rawGistLink = "https://gist.githubusercontent.com/" + user + "/" + gist.id + "/raw/" + gist.history[0].version + "/style.json"
+      const maputnikStyleLink = "https://maputnik.github.io/editor/?style=" + rawGistLink
+      return <div className="maputnik-render-gist">
+        <p>
+          Latest saved gist:{' '}
+          {this.renderPreviewLink(this)}
+          <a target="_blank" rel="noopener noreferrer" href={"https://gist.github.com/" + user + "/" + gist.id}>Source</a>
+        </p>
+        <p>
+          <CopyToClipboard text={maputnikStyleLink}>
+            <span>Share this style: <Button><TiClipboard size={18} /></Button></span>
+          </CopyToClipboard>
+          <StringInput value={maputnikStyleLink} />
+        </p>
+      </div>
     }
   }
 
@@ -165,7 +178,7 @@ class Gist extends React.Component {
                   value={(this.props.mapStyle.metadata || {})['maputnik:openmaptiles_access_token']}
                   onChange={this.changeMetadataProperty.bind(this, "maputnik:openmaptiles_access_token")}/>
             </InputBlock>
-            <a target="_blank" href="https://openmaptiles.com/hosting/">Get your free access token</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://openmaptiles.com/hosting/">Get your free access token</a>
           </div>
       : null}
       {this.renderLatestGist()}
