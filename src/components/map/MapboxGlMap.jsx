@@ -109,7 +109,12 @@ export default class MapboxGlMap extends React.Component {
           this.state.map.setZoom(nextProps.mapStyle.zoom)
         }
         if (nextProps.mapStyle.center) {
-          this.state.map.setCenter(nextProps.mapStyle.center.reverse())
+
+          let center=nextProps.mapStyle.center;
+          if(nextProps.mapStyle.center[1]>90){
+            center= nextProps.mapStyle.center.reverse()
+          }
+          this.state.map.setCenter(center)
         }
         delete nextProps.mapStyle.init;
       }

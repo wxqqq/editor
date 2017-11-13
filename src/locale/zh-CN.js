@@ -19,8 +19,8 @@ const zh_CN = {
   'intl.Include preview': "包括预览",
   //Sources
   'intl.Source': "数据源",
-  'intl.1st Tile URL':'1st Tile URL',
-  'intl.is TMS':'is TMS',
+  'intl.1st Tile URL': '1st Tile URL',
+  'intl.is TMS': 'is TMS',
   'intl.Sources': "数据源",
   'intl.Active Sources': "主动源",
   'intl.Choose Public Source': "选择公共源",
@@ -121,6 +121,12 @@ const zh_CN = {
   'intl.Viewport': "视窗",
   //IconPaintProperties
   'intl.Paint properties': '填充属性',
+  'intl.Hue rotate': 'Hue rotate',
+  'intl.Brightness min': 'Brightness min',
+  'intl.Brightness max': 'Brightness max',
+  'intl.Saturation': 'Saturation',
+  'intl.Contrast': 'Contrast',
+  'intl.Fade duration': 'Fade duration',
   'intl.Width': "宽度",
   'intl.Antialias': "抗锯齿",
   'intl.Dasharray': "点数组",

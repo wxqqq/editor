@@ -127,7 +127,6 @@ export default class App extends React.Component {
 
   onStyleChanged(newStyle, save = true) {
 
-    console.log(newStyle);
     if (newStyle.glyphs !== this.state.mapStyle.glyphs) {
       this.updateFonts(newStyle.glyphs)
     }
@@ -253,6 +252,7 @@ export default class App extends React.Component {
       layers={layers}
       sources={this.state.sources}
     />;
+
 
     const layerEditor = selectedLayer ? <LayerEditor
       layer={selectedLayer}
