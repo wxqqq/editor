@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { saveAs } from 'file-saver'
 
 import styleSpec from '@mapbox/mapbox-gl-style-spec'
@@ -18,9 +19,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 class Gist extends React.Component {
   static propTypes = {
-    mapStyle: React.PropTypes.object.isRequired,
-    onStyleChanged: React.PropTypes.func.isRequired,
-  };
+    mapStyle: PropTypes.object.isRequired,
+    onStyleChanged: PropTypes.func.isRequired,
+  }
 
   constructor(props) {
     super(props);
@@ -76,12 +77,12 @@ class Gist extends React.Component {
     </script>
   </body>
   </html>
-`;
+`
     const files = {
       "style.json": {
         content: mapStyleStr
       }
-    };
+    }
     if(preview) {
       files["index.html"] = {
         content: htmlStr
@@ -118,7 +119,7 @@ class Gist extends React.Component {
         ...this.props.mapStyle.metadata,
         [property]: value
       }
-    };
+    }
     this.props.onStyleChanged(changedStyle)
   }
 
@@ -187,9 +188,9 @@ class Gist extends React.Component {
 }
 
 function stripAccessTokens(mapStyle) {
-  const changedMetadata = { ...mapStyle.metadata };
-  delete changedMetadata['maputnik:mapbox_access_token'];
-  delete changedMetadata['maputnik:openmaptiles_access_token'];
+  const changedMetadata = { ...mapStyle.metadata }
+  delete changedMetadata['maputnik:mapbox_access_token']
+  delete changedMetadata['maputnik:openmaptiles_access_token']
   return {
     ...mapStyle,
     metadata: changedMetadata
@@ -198,11 +199,11 @@ function stripAccessTokens(mapStyle) {
 
 class ExportModal extends React.Component {
   static propTypes = {
-    mapStyle: React.PropTypes.object.isRequired,
-    onStyleChanged: React.PropTypes.func.isRequired,
-    isOpen: React.PropTypes.bool.isRequired,
-    onOpenToggle: React.PropTypes.func.isRequired,
-  };
+    mapStyle: PropTypes.object.isRequired,
+    onStyleChanged: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onOpenToggle: PropTypes.func.isRequired,
+  }
 
   constructor(props) {
     super(props);

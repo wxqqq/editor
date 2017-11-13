@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import DocLabel from '../fields/DocLabel'
 import {FormattedMessage} from 'react-intl'
@@ -6,15 +7,15 @@ import {FormattedMessage} from 'react-intl'
 /** Wrap a component with a label */
 class InputBlock extends React.Component {
   static propTypes = {
-    label: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.element,
+    label: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
     ]).isRequired,
-    doc: React.PropTypes.string,
-    action: React.PropTypes.element,
-    children: React.PropTypes.element.isRequired,
-    style: React.PropTypes.object,
-  };
+    doc: PropTypes.string,
+    action: PropTypes.element,
+    children: PropTypes.element.isRequired,
+    style: PropTypes.object,
+  }
 
   onChange(e) {
     const value = e.target.value;

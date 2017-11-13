@@ -8,7 +8,8 @@ import style from '../../libs/style.js'
 import tokens from '../../config/tokens.json'
 import colors from 'mapbox-gl-inspect/lib/colors'
 import Color from 'color'
-import {colorHighlightedLayer} from '../../libs/highlight'
+import ZoomControl from '../../libs/zoomcontrol'
+import { colorHighlightedLayer } from '../../libs/highlight'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '../../mapboxgl.css'
 import '../../libs/mapbox-rtl'
@@ -28,8 +29,7 @@ const currentLang = languages[0];
 
 function renderLayerPopup(features) {
   var mountNode = document.createElement('div');
-
-  ReactDOM.render(<FeatureLayerPopup features={features}/>, mountNode)
+  ReactDOM.render(<FeatureLayerPopup features={features} />, mountNode)
   return mountNode.innerHTML;
 }
 
@@ -50,14 +50,14 @@ function buildInspectStyle(originalMapStyle, coloredLayers, highlightedLayer) {
   }
 
   const layer = colorHighlightedLayer(highlightedLayer)
-  if (layer) {
+  if(layer) {
     coloredLayers.push(layer)
   }
 
   const sources = {}
   Object.keys(originalMapStyle.sources).forEach(sourceId => {
     const source = originalMapStyle.sources[sourceId]
-    if (source.type !== 'raster') {
+    if(source.type !== 'raster') {
       sources[sourceId] = source
     }
   })
@@ -72,17 +72,15 @@ function buildInspectStyle(originalMapStyle, coloredLayers, highlightedLayer) {
 
 export default class MapboxGlMap extends React.Component {
   static propTypes = {
-    onDataChange: React.PropTypes.func,
-    mapStyle: React.PropTypes.object.isRequired,
-    inspectModeEnabled: React.PropTypes.bool.isRequired,
-    highlightedLayer: React.PropTypes.object,
+    onDataChange: PropTypes.func,
+    mapStyle: PropTypes.object.isRequired,
+    inspectModeEnabled: PropTypes.bool.isRequired,
+    highlightedLayer: PropTypes.object,
   }
 
   static defaultProps = {
-    onMapLoaded: () => {
-    },
-    onDataChange: () => {
-    },
+    onMapLoaded: () => {},
+    onDataChange: () => {},
     mapboxAccessToken: tokens.mapbox,
   }
 
@@ -99,8 +97,7 @@ export default class MapboxGlMap extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    if (!this.state.map) return
+    if(!this.state.map) return
     const metadata = nextProps.mapStyle.metadata || {}
     MapboxGl.accessToken = metadata['maputnik:mapbox_access_token'] || tokens.mapbox
 
@@ -124,21 +121,23 @@ export default class MapboxGlMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.inspectModeEnabled !== prevProps.inspectModeEnabled) {
+    if(this.props.inspectModeEnabled !== prevProps.inspectModeEnabled) {
       this.state.inspect.toggleInspector()
     }
-    if (this.props.inspectModeEnabled) {
+    if(this.props.inspectModeEnabled) {
       this.state.inspect.render()
     }
   }
 
   componentDidMount() {
-
     const map = new MapboxGl.Map({
       container: this.container,
       style: this.props.mapStyle,
       hash: true,
     })
+
+    const zoom = new ZoomControl;
+    map.addControl(zoom, 'top-right');
 
     const nav = new MapboxGl.NavigationControl();
     map.addControl(nav, 'top-right');
@@ -156,7 +155,7 @@ export default class MapboxGlMap extends React.Component {
       },
       buildInspectStyle: (originalMapStyle, coloredLayers) => buildInspectStyle(originalMapStyle, coloredLayers, this.props.highlightedLayer),
       renderPopup: features => {
-        if (this.props.inspectModeEnabled) {
+        if(this.props.inspectModeEnabled) {
           return renderPropertyPopup(features)
         } else {
           return renderLayerPopup(features)
@@ -166,29 +165,19 @@ export default class MapboxGlMap extends React.Component {
     map.addControl(inspect)
 
     map.on("style.load", () => {
-      this.setState({
-        map,
-        inspect
-      });
+      this.setState({ map, inspect });
     })
 
     map.on("data", e => {
-      if (e.dataType !== 'tile') return
+      if(e.dataType !== 'tile') return
       this.props.onDataChange({
         map: this.state.map
       })
     })
     map.on('mousemove', function (e) {
       document.getElementById('position').innerHTML =
-        // e.point is the x, y coordinates of the mousemove event relative
-        // to the top-left corner of the map
-        // JSON.stringify(e.point) + '<br />' +
-        // e.lngLat is the longitude, latitude geographical position of the event
-        // console.log(e);
-        // console.log(Number(e.lngLat.lat), Number(e.lngLat.lat).toFixed(4))
         Number(e.lngLat.lat).toFixed(4) + "," + Number(e.lngLat.lng).toFixed(4)
-      // JSON.stringify(e.lngLat);
-    });
+     });
   }
 
   render() {

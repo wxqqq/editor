@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import FileReaderInput from 'react-file-reader-input'
 import classnames from 'classnames'
 
@@ -50,18 +51,18 @@ function ToolbarAction(props) {
 
 export default class Toolbar extends React.Component {
   static propTypes = {
-    mapStyle: React.PropTypes.object.isRequired,
-    inspectModeEnabled: React.PropTypes.bool.isRequired,
-    onStyleChanged: React.PropTypes.func.isRequired,
+    mapStyle: PropTypes.object.isRequired,
+    inspectModeEnabled: PropTypes.bool.isRequired,
+    onStyleChanged: PropTypes.func.isRequired,
     // A new style has been uploaded
-    onStyleOpen: React.PropTypes.func.isRequired,
+    onStyleOpen: PropTypes.func.isRequired,
     // A dict of source id's and the available source layers
-    sources: React.PropTypes.object.isRequired,
-    onInspectModeToggle: React.PropTypes.func.isRequired
-  };
+    sources: PropTypes.object.isRequired,
+    onInspectModeToggle: PropTypes.func.isRequired
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       isOpen: {
         settings: false,
@@ -107,14 +108,16 @@ export default class Toolbar extends React.Component {
           isOpen={this.state.isOpen.sources}
           onOpenToggle={this.toggleModal.bind(this, 'sources')}
       />
+      <div className="maputnik-toolbar__inner">
       <ToolbarLink
         href={"https://github.com/maputnik/editor"}
         className="maputnik-toolbar-logo"
       >
         <img src={logoImage} alt="Maputnik" />
-        <h1>地图编辑器</h1>
+        <h1>Maputnik</h1>
       </ToolbarLink>
-      <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
+        <div className="maputnik-toolbar__actions">
+        <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
         <OpenIcon />
         <IconText><FormattedMessage
           id="intl.open"
@@ -145,14 +148,8 @@ export default class Toolbar extends React.Component {
       <ToolbarAction onClick={this.props.onInspectModeToggle}>
         <InspectionIcon />
         <IconText>
-          { this.props.inspectModeEnabled && <span><FormattedMessage
-            id="intl.MapMode"
-            defaultMessage={'Map Mode'}
-          /></span> }
-          { !this.props.inspectModeEnabled && <span><FormattedMessage
-            id="intl.InspectMode"
-            defaultMessage={'Inspect Mode'}
-          /></span> }
+          { this.props.inspectModeEnabled && <span>Map Mode</span> }
+          { !this.props.inspectModeEnabled && <span>Inspect Mode</span> }
         </IconText>
       </ToolbarAction>
       <ToolbarLink href={"https://github.com/maputnik/editor/wiki"}>
@@ -162,6 +159,8 @@ export default class Toolbar extends React.Component {
           defaultMessage={'help'}
         /></IconText>
       </ToolbarLink>
+        </div>
+      </div>
     </div>
   }
 }
