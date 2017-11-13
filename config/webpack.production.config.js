@@ -1,4 +1,3 @@
-
 var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
@@ -7,7 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
 var OUTPATH;
-if(process.env.CIRCLE_ARTIFACTS) {
+if (process.env.CIRCLE_ARTIFACTS) {
   OUTPATH = path.join(process.env.CIRCLE_ARTIFACTS, "build");
 }
 else {
@@ -18,23 +17,23 @@ module.exports = {
   entry: {
     app: './src/index.jsx',
     vendor: [
-        'file-saver',
-        'mapbox-gl/dist/mapbox-gl.js',
-        "lodash.clonedeep",
-        "lodash.throttle",
-        'color',
-        'react',
-        "react-dom",
-        "react-color",
-        "react-file-reader-input",
-        "react-collapse",
-        "react-height",
-        "react-icon-base",
-        "react-motion",
-        "react-sortable-hoc",
-        "request",
-        //TODO: Icons raise multi vendor errors?
-        //"react-icons",
+      'file-saver',
+      'mapbox-gl/dist/mapbox-gl.js',
+      "lodash.clonedeep",
+      "lodash.throttle",
+      'color',
+      'react',
+      "react-dom",
+      "react-color",
+      "react-file-reader-input",
+      "react-collapse",
+      "react-height",
+      "react-icon-base",
+      "react-motion",
+      "react-sortable-hoc",
+      "request",
+      //TODO: Icons raise multi vendor errors?
+      //"react-icons",
     ]
   },
   output: {
@@ -43,7 +42,7 @@ module.exports = {
     chunkFilename: '[chunkhash].js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: [ '.js', '.jsx']
   },
   module: {
     loaders
@@ -55,7 +54,7 @@ module.exports = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', '[chunkhash].vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: '[chunkhash].vendor.js'}),
     new WebpackCleanupPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
@@ -68,8 +67,10 @@ module.exports = {
         screw_ie8: true,
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('[contenthash].css', {
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new ExtractTextPlugin({
+      filename: '[contenthash].css',
+      disable: false,
       allChunks: true
     }),
     new HtmlWebpackPlugin({

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import MapboxGl from 'mapbox-gl'
 import MapboxInspect from 'mapbox-gl-inspect'

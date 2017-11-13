@@ -83,7 +83,7 @@ const zh_CN = {
   'intl.Line height': "行高",
   'intl.Padding': "填充",
   'intl.Allow overlap': "允许重叠",
-  'intl.Ignore placement': "忽略布局",
+  'intl.Ignore placement': "忽略定位",
   'intl.Pitch alignment': "间距对齐",
   'intl.Rotation alignment': "旋转对准",
   'intl.Max width': "最大宽度",
