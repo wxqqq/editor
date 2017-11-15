@@ -23,7 +23,7 @@ class AppLayout extends React.Component {
   }
  
     /**
-   * [setFadeIn description]tjc 修改drawer面板样式
+   * [setFadeIn description]tjc 修改drawer面板样式,设置面板收缩
    */
     setFadeIn() {
         let m = document.getElementsByClassName("maputnik-layout-drawer");

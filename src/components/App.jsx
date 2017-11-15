@@ -222,7 +222,11 @@ export default class App extends React.Component {
                           highlightedLayer={this.state.mapStyle.layers[this.state.selectedLayerIndex]}/>
     }
   }
- //tjc 修改drawer面板样式
+ /**
+  * [onLayerSelect description]图层选择 tjc 修改drawer面板样式
+  * @param  {[type]} layerId [description]图层id
+  * @return {[type]}         [description]
+  */
   onLayerSelect(layerId) {
     const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId);
     this.setState({
