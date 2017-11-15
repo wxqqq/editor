@@ -236,6 +236,7 @@ export default class App extends React.Component {
      
      hideButton[1].style.display= "block";//tjc 修改drawer面板样式
     //m.style.transition= 'all 1s ease';
+
   }
 
   render() {

@@ -61,4 +61,8 @@ module.exports = {
       template: './src/template.html'
     })
   ]
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294

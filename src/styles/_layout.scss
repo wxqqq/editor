@@ -34,9 +34,11 @@
     z-index: 1;
     width: 350px;
     background-color: $color-black;
+ 
     transform: translateX(-350px);
     //隐藏 tjc
     //transition: all 1s ease;
+ 
   }
 
   &-bottom {

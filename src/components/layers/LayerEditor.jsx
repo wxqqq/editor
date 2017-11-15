@@ -13,7 +13,6 @@ import CommentBlock from './CommentBlock'
 import LayerSourceBlock from './LayerSourceBlock'
 import LayerSourceLayerBlock from './LayerSourceLayerBlock'
 
-import Button from '../Button'
 
 import InputBlock from '../inputs/InputBlock'
 import MultiButtonInput from '../inputs/MultiButtonInput'
@@ -42,7 +41,6 @@ function layoutGroups(layerType) {
   }
     return [layerGroup, filterGroup].concat(layout[layerType].groups).concat([editorGroup])
 }
-
 
 /** Layer editor supporting multiple types of layers. */
 export default class LayerEditor extends React.Component {
@@ -113,14 +111,7 @@ export default class LayerEditor extends React.Component {
       editorGroups: changedActiveGroups
     })
   }
-  /**
-   * [setFadeIn description]tjc 修改drawer面板样式
-   */
-  setFadeIn() {
-        let m = document.getElementsByClassName("maputnik-layout-drawer");
 
-        m[0].style.transform = "translateX(-350px)"; 
-    }
   renderGroupType(type, fields) {
     let comment = ""
     if(this.props.layer.metadata) {
@@ -200,13 +191,11 @@ export default class LayerEditor extends React.Component {
       </LayerEditorGroup>
     })
  
-
     return <div className="maputnik-layer-editor"
       >
  
       {groups}
-       <div  className="hymap-hide-div" ></div>
+
     </div>
-   
   }
 }
