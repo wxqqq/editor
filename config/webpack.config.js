@@ -1,0 +1,58 @@
+"use strict";
+var webpack = require('webpack');
+var path = require('path');
+var loaders = require('./webpack.loaders');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || "8888";
+
+module.exports = {
+  target: 'web',
+  entry: [
+    `webpack-dev-server/client?http://${HOST}:${PORT}`,
+    `webpack/hot/only-dev-server`,
+    `./src/index.jsx` // Your appʼs entry point
+  ],
+  devtool: process.env.WEBPACK_DEVTOOL || 'cheap-module-source-map',
+  output: {
+    path: path.join(__dirname, '..', 'public'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js','.css','.sass', '.scss', '.less', '.jsx']
+  },
+  module: {
+    rules:loaders,
+    noParse: [
+      path.join(__dirname, '..', 'node_modules/openlayers/dist'),
+      path.join(__dirname, '..', 'node_modules/mapbox-gl/dist'),
+      path.join(__dirname, '..', 'node_modules/ajv/dist')
+    ]
+  },
+  node: {
+    fs: "empty",
+    net: 'empty',
+    tls: 'empty'
+  },
+  devServer: {
+    contentBase: "./public",
+    // do not print bundle build stats
+    noInfo: true,
+    // enable HMR
+    // embed the webpack-dev-server runtime into the bundle
+    inline: true,
+    // serve index.html in place of 404 responses to allow HTML5 history
+    historyApiFallback: true,
+    port: PORT,
+    host: HOST
+  },
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Maputnik',
+      template: './src/template.html'
+    })
+  ]
+};
