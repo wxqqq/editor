@@ -145,7 +145,7 @@ export default class MapboxGlMap extends React.Component {
     const zoom = new ZoomControl;
     map.addControl(zoom, 'top-right');
  
-    //全屏按钮
+    //tjc  增加全屏按钮
     map.addControl(new MapboxGl.FullscreenControl(),'top-right');
  
     const nav = new MapboxGl.NavigationControl();
