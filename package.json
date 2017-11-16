@@ -8,11 +8,7 @@
     "build": "webpack --config config/webpack.production.config.js --progress --profile --colors",
     "test": "wdio config/wdio.conf.js",
     "test-watch": "wdio config/wdio.conf.js --watch",
-<<<<<<< HEAD
-    "start": "webpack-dev-server --progress --profile --colors --watch-poll --config config/webpack.config.js",
-=======
     "start": "webpack-dev-server --progress  --hot --inline --profile --colors --config config/webpack.config.js",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "lint": "eslint --ext js --ext jsx {src,test}",
     "lint-styles": "stylelint 'src/styles/*.scss'"
   },
@@ -24,13 +20,8 @@
   "license": "MIT",
   "homepage": "https://github.com/maputnik/editor#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "@mapbox/mapbox-gl-style-spec": "^9.0.0",
-    "@mapbox/mapbox-gl-rtl-text": "^0.1.0",
-=======
     "@mapbox/mapbox-gl-rtl-text": "^0.1.0",
     "@mapbox/mapbox-gl-style-spec": "^9.0.1",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "classnames": "^2.2.5",
     "codemirror": "^5.18.2",
     "color": "^1.0.3",
@@ -41,13 +32,6 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.4.0",
     "lodash.throttle": "^4.1.1",
-<<<<<<< HEAD
-    "mapbox-gl": "^0.34.0",
-    "mapbox-gl-inspect": "^1.2.3",
-    "mousetrap": "^1.6.0",
-    "ol-mapbox-style": "1.0.1",
-    "openlayers": "^3.19.1",
-=======
     "mapbox-gl": "^0.40.1",
     "mapbox-gl-inspect": "^1.2.3",
     "maputnik-design": "github:maputnik/design",
@@ -55,19 +39,13 @@
     "ol-mapbox-style": "1.0.1",
     "openlayers": "^3.19.1",
     "prop-types": "^15.6.0",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "react": "^15.4.0",
     "react-addons-pure-render-mixin": "^15.4.0",
     "react-autocomplete": "^1.4.0",
     "react-codemirror": "^0.3.0",
-<<<<<<< HEAD
-    "react-collapse": "^4.0.2",
-    "react-color": "^2.10.0",
-=======
     "react-collapse": "^4.0.3",
     "react-color": "^2.10.0",
     "react-copy-to-clipboard": "^5.0.1",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "react-dom": "^15.4.0",
     "react-file-reader-input": "^1.1.0",
     "react-height": "^3.0.0",
@@ -75,11 +53,7 @@
     "react-icons": "^2.2.1",
     "react-intl": "^2.4.0",
     "react-motion": "^0.4.7",
-<<<<<<< HEAD
-    "react-sortable-hoc": "^0.4.5",
-=======
     "react-sortable-hoc": "^0.6.8",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "reconnecting-websocket": "^3.0.3",
     "request": "^2.79.0",
     "url": "^0.11.0"
@@ -129,11 +103,7 @@
     "css-loader": "^0.28.7",
     "eslint": "^3.5.0",
     "eslint-plugin-react": "^6.2.0",
-<<<<<<< HEAD
-    "extract-text-webpack-plugin": "^2.0.0-beta.4",
-=======
     "extract-text-webpack-plugin": "^1.0.1",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
@@ -144,11 +114,7 @@
     "karma-webpack": "^2.0.1",
     "mocha": "^3.1.2",
     "mocha-loader": "^1.0.0",
-<<<<<<< HEAD
-    "node-sass": "^4.2.0",
-=======
     "node-sass": "^4.6.1",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "react-hot-loader": "^3.0.0-beta.6",
     "sass-loader": "^4.0.1",
     "style-loader": "0.13.1",
@@ -159,11 +125,7 @@
     "wdio-phantomjs-service": "^0.2.2",
     "wdio-spec-reporter": "^0.1.0",
     "webdriverio": "^4.6.2",
-<<<<<<< HEAD
-    "webpack": "^2.7.0",
-=======
     "webpack": "1.14.0",
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
     "webpack-cleanup-plugin": "^0.4.1",
     "webpack-dev-server": "1.16.2"
   }
