@@ -238,7 +238,7 @@ export default class App extends React.Component {
 
      let  hideButton=  document.getElementsByClassName("hymap-hide-div");
      
-     hideButton[1].style.display= "block";//tjc 修改drawer面板样式
+     hideButton[0].style.display= "block";//tjc 修改drawer面板样式
     //m.style.transition= 'all 1s ease';
 
   }
