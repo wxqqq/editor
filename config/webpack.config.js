@@ -4,7 +4,7 @@ var path = require('path');
 var loaders = require('./webpack.loaders');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || "192.168.1.201";
 const PORT = process.env.PORT || "8888";
 
 module.exports = {
@@ -61,8 +61,4 @@ module.exports = {
       template: './src/template.html'
     })
   ]
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 8eb525a9f89f4fecc898949e769750d6ecbb5294
