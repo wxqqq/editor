@@ -11,7 +11,7 @@ import AddModal from '../modals/AddModal'
 
 import style from '../../libs/style.js'
 import {SortableContainer, SortableHandle, arrayMove} from 'react-sortable-hoc';
-
+import {FormattedMessage} from 'react-intl'
 const layerListPropTypes = {
   layers: PropTypes.array.isRequired,
   selectedLayerIndex: PropTypes.number.isRequired,
@@ -181,7 +181,11 @@ class LayerListContainer extends React.Component {
         <Button
           onClick={this.toggleModal.bind(this, 'add')}
           className="maputnik-add-layer">
-      Add Layer
+          <FormattedMessage
+          id="intl.Add Layer"
+          defaultMessage={'Add Layer'}
+        />
+      
       </Button>
       </header>
       <ul className="maputnik-layer-list-container">

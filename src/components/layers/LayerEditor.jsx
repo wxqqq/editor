@@ -13,6 +13,7 @@ import CommentBlock from './CommentBlock'
 import LayerSourceBlock from './LayerSourceBlock'
 import LayerSourceLayerBlock from './LayerSourceLayerBlock'
 
+
 import InputBlock from '../inputs/InputBlock'
 import MultiButtonInput from '../inputs/MultiButtonInput'
 
@@ -189,10 +190,12 @@ export default class LayerEditor extends React.Component {
         {this.renderGroupType(group.type, group.fields)}
       </LayerEditorGroup>
     })
-
+ 
     return <div className="maputnik-layer-editor"
       >
+ 
       {groups}
+
     </div>
   }
 }

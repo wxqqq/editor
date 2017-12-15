@@ -144,7 +144,10 @@ export default class MapboxGlMap extends React.Component {
 
     const zoom = new ZoomControl;
     map.addControl(zoom, 'top-right');
-
+ 
+    //tjc  增加全屏按钮
+    map.addControl(new MapboxGl.FullscreenControl(),'top-right');
+ 
     const nav = new MapboxGl.NavigationControl();
     map.addControl(nav, 'top-right');
 
@@ -182,7 +185,9 @@ export default class MapboxGlMap extends React.Component {
     })
     map.on('mousemove', function (e) {
       document.getElementById('position').innerHTML =
-        Number(e.lngLat.lat).toFixed(4) + "," + Number(e.lngLat.lng).toFixed(4)
+ 
+       "经度："+Number(e.lngLat.lng).toFixed(4) + ",纬度：" + Number(e.lngLat.lat).toFixed(4)
+ 
      });
   }
 

@@ -132,11 +132,15 @@ export default class Toolbar extends React.Component {
       />
       <div className="maputnik-toolbar__inner">
       <ToolbarLink
-        href={"https://github.com/maputnik/editor"}
+       /*{ href={"https://github.com/maputnik/editor"}}*/
         className="maputnik-toolbar-logo"
       >
         <img src={logoImage} alt="Maputnik" />
-        <h1>Maputnik</h1>
+        <h1>
+        <FormattedMessage
+          id="intl.projectName"
+          defaultMessage={'Maputnik'}
+        /></h1>
       </ToolbarLink>
         <div className="maputnik-toolbar__actions">
         <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
@@ -170,8 +174,16 @@ export default class Toolbar extends React.Component {
       <ToolbarAction onClick={this.props.onInspectModeToggle}>
         <InspectionIcon />
         <IconText>
-          { this.props.inspectModeEnabled && <span>Map Mode</span> }
-          { !this.props.inspectModeEnabled && <span>Inspect Mode</span> }
+          { this.props.inspectModeEnabled && <span>
+          <FormattedMessage
+          id="intl.MapMode"
+          defaultMessage={'Map Mode'}/>
+            </span> }
+          { !this.props.inspectModeEnabled && <span>
+            <FormattedMessage
+          id="intl.InspectMode"
+          defaultMessage={'Inspect Mode'}/>
+            </span> }
         </IconText>
       </ToolbarAction>
       <ToolbarLink href={"https://github.com/maputnik/editor/wiki"}>
