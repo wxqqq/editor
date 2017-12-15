@@ -9,7 +9,7 @@ module.exports = [
     exclude: /(.*node_modules(?![\/\\]@mapbox[\/\\]mapbox-gl-style-spec)|bower_components|public)/,
     loader: 'babel-loader',
     query: {
-      presets: ['es2015', 'react'],
+      presets: ['env', 'react'],
       plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
     }
   },

@@ -1,5 +1,6 @@
 import React from 'react'
 import Mousetrap from 'mousetrap'
+
 import MapboxGlMap from './map/MapboxGlMap'
 import OpenLayers3Map from './map/OpenLayers3Map'
 import LayerList from './layers/LayerList'
@@ -7,19 +8,21 @@ import LayerEditor from './layers/LayerEditor'
 import Toolbar from './Toolbar'
 import AppLayout from './AppLayout'
 import MessagePanel from './MessagePanel'
-import {downloadGlyphsMetadata, downloadSpriteMetadata} from '../libs/metadata'
-import styleSpec from '@mapbox/mapbox-gl-style-spec'
+
+import { downloadGlyphsMetadata, downloadSpriteMetadata } from '../libs/metadata'
+import styleSpec from '@mapbox/mapbox-gl-style-spec/style-spec'
 import style from '../libs/style.js'
-import {initialStyleUrl, loadStyleUrl} from '../libs/urlopen'
-import {undoMessages, redoMessages} from '../libs/diffmessage'
-import {loadDefaultStyle, StyleStore} from '../libs/stylestore'
-import {ApiStyleStore} from '../libs/apistore'
-import {RevisionStore} from '../libs/revisions'
+import { initialStyleUrl, loadStyleUrl } from '../libs/urlopen'
+import { undoMessages, redoMessages } from '../libs/diffmessage'
+import { loadDefaultStyle, StyleStore } from '../libs/stylestore'
+import { ApiStyleStore } from '../libs/apistore'
+import { RevisionStore } from '../libs/revisions'
 import LayerWatcher from '../libs/layerwatcher'
 import tokens from '../config/tokens.json'
+import isEqual from 'lodash.isequal'
+
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
-
 import zh_CN from '../locale/zh-CN';
 import en_US from '../locale/en-US';
 import {addLocaleData, IntlProvider} from 'react-intl';
@@ -46,20 +49,20 @@ function updateRootSpec(spec, fieldName, newValues) {
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.revisionStore = new RevisionStore();
+    super(props)
+    this.revisionStore = new RevisionStore()
     this.styleStore = new ApiStyleStore({
       onLocalStyleChange: mapStyle => this.onStyleChanged(mapStyle, false)
-    });
+    })
 
-    const styleUrl = initialStyleUrl();
-    if (styleUrl) {
-      this.styleStore = new StyleStore();
+    const styleUrl = initialStyleUrl()
+    if(styleUrl) {
+      this.styleStore = new StyleStore()
       loadStyleUrl(styleUrl, mapStyle => this.onStyleChanged(mapStyle))
     } else {
       this.styleStore.init(err => {
-        if (err) {
-          console.log('Falling back to local storage for storing styles');
+        if(err) {
+          console.log('Falling back to local storage for storing styles')
           this.styleStore = new StyleStore()
         }
         this.styleStore.latestStyle(mapStyle => this.onStyleChanged(mapStyle))
@@ -75,20 +78,15 @@ export default class App extends React.Component {
       vectorLayers: {},
       inspectModeEnabled: false,
       spec: styleSpec.latest,
-    };
-
+    }
 
     this.layerWatcher = new LayerWatcher({
-      onSourcesChange: v => this.setState({
-        sources: v
-      }),
-      onVectorLayersChange: v => this.setState({
-        vectorLayers: v
-      })
+      onVectorLayersChange: v => this.setState({ vectorLayers: v })
     })
   }
 
   componentDidMount() {
+    this.fetchSources();
     Mousetrap.bind(['ctrl+z'], this.onUndo.bind(this));
     Mousetrap.bind(['ctrl+y'], this.onRedo.bind(this));
   }
@@ -99,7 +97,7 @@ export default class App extends React.Component {
   }
 
   onReset() {
-    this.styleStore.purge();
+    this.styleStore.purge()
     loadDefaultStyle(mapStyle => this.onStyleOpen(mapStyle))
   }
 
@@ -108,36 +106,31 @@ export default class App extends React.Component {
   }
 
   updateFonts(urlTemplate) {
-    const metadata = this.state.mapStyle.metadata || {};
-    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles;
+    const metadata = this.state.mapStyle.metadata || {}
+    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles
     downloadGlyphsMetadata(urlTemplate.replace('{key}', accessToken), fonts => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'glyphs', fonts)
-      })
+      this.setState({ spec: updateRootSpec(this.state.spec, 'glyphs', fonts)})
     })
   }
 
   updateIcons(baseUrl) {
     downloadSpriteMetadata(baseUrl, icons => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'sprite', icons)
-      })
+      this.setState({ spec: updateRootSpec(this.state.spec, 'sprite', icons)})
     })
   }
 
-  onStyleChanged(newStyle, save = true) {
-
-    if (newStyle.glyphs !== this.state.mapStyle.glyphs) {
+  onStyleChanged(newStyle, save=true) {
+    if(newStyle.glyphs !== this.state.mapStyle.glyphs) {
       this.updateFonts(newStyle.glyphs)
     }
-    if (newStyle.sprite !== this.state.mapStyle.sprite) {
+    if(newStyle.sprite !== this.state.mapStyle.sprite) {
       this.updateIcons(newStyle.sprite)
     }
 
     const errors = styleSpec.validate(newStyle, styleSpec.latest)
-    if (errors.length === 0) {
-      this.revisionStore.addRevision(newStyle);
-      if (save) this.saveStyle(newStyle);
+    if(errors.length === 0) {
+      this.revisionStore.addRevision(newStyle)
+      if(save) this.saveStyle(newStyle)
       this.setState({
         mapStyle: newStyle,
         errors: [],
@@ -147,12 +140,14 @@ export default class App extends React.Component {
         errors: errors.map(err => err.message)
       })
     }
+
+    this.fetchSources();
   }
 
   onUndo() {
-    const activeStyle = this.revisionStore.undo();
-    const messages = undoMessages(this.state.mapStyle, activeStyle);
-    this.saveStyle(activeStyle);
+    const activeStyle = this.revisionStore.undo()
+    const messages = undoMessages(this.state.mapStyle, activeStyle)
+    this.saveStyle(activeStyle)
     this.setState({
       mapStyle: activeStyle,
       infos: messages,
@@ -160,9 +155,9 @@ export default class App extends React.Component {
   }
 
   onRedo() {
-    const activeStyle = this.revisionStore.redo();
-    const messages = redoMessages(this.state.mapStyle, activeStyle);
-    this.saveStyle(activeStyle);
+    const activeStyle = this.revisionStore.redo()
+    const messages = redoMessages(this.state.mapStyle, activeStyle)
+    this.saveStyle(activeStyle)
     this.setState({
       mapStyle: activeStyle,
       infos: messages,
@@ -173,26 +168,26 @@ export default class App extends React.Component {
     const changedStyle = {
       ...this.state.mapStyle,
       layers: changedLayers
-    };
+    }
     this.onStyleChanged(changedStyle)
   }
 
   onLayerIdChange(oldId, newId) {
-    const changedLayers = this.state.mapStyle.layers.slice(0);
-    const idx = style.indexOfLayer(changedLayers, oldId);
+    const changedLayers = this.state.mapStyle.layers.slice(0)
+    const idx = style.indexOfLayer(changedLayers, oldId)
 
     changedLayers[idx] = {
       ...changedLayers[idx],
       id: newId
-    };
+    }
 
     this.onLayersChange(changedLayers)
   }
 
   onLayerChanged(layer) {
-    const changedLayers = this.state.mapStyle.layers.slice(0);
-    const idx = style.indexOfLayer(changedLayers, layer.id);
-    changedLayers[idx] = layer;
+    const changedLayers = this.state.mapStyle.layers.slice(0)
+    const idx = style.indexOfLayer(changedLayers, layer.id)
+    changedLayers[idx] = layer
 
     this.onLayersChange(changedLayers)
   }
@@ -203,38 +198,83 @@ export default class App extends React.Component {
     })
   }
 
+  fetchSources() {
+    const sourceList = {...this.state.sources};
+
+    for(let [key, val] of Object.entries(this.state.mapStyle.sources)) {
+      if(sourceList.hasOwnProperty(key)) {
+        continue;
+      }
+
+      sourceList[key] = {
+        type: val.type,
+        layers: []
+      };
+
+      if(!this.state.sources.hasOwnProperty(key) && val.type === "vector") {
+        const url = val.url;
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((json) => {
+            // Create new objects before setState
+            const sources = Object.assign({}, this.state.sources);
+
+            for(let layer of json.vector_layers) {
+              sources[key].layers.push(layer.id)
+            }
+
+            console.debug("Updating source: "+key);
+            this.setState({
+              sources: sources
+            });
+          })
+          .catch((err) => {
+            console.error("Failed to process sources for '%s'", url, err);
+          })
+      }
+    }
+
+    if(!isEqual(this.state.sources, sourceList)) {
+      console.debug("Setting sources");
+      this.setState({
+        sources: sourceList
+      })
+    }
+  }
+
   mapRenderer() {
     const mapProps = {
       mapStyle: style.replaceAccessToken(this.state.mapStyle),
       onDataChange: (e) => {
         this.layerWatcher.analyzeMap(e.map)
+        this.fetchSources();
       },
-    };
-    const metadata = this.state.mapStyle.metadata || {};
-    const renderer = metadata['maputnik:renderer'] || 'mbgljs';
+    }
+
+    const metadata = this.state.mapStyle.metadata || {}
+    const renderer = metadata['maputnik:renderer'] || 'mbgljs'
 
     // Check if OL3 code has been loaded?
-    if (renderer === 'ol3') {
+    if(renderer === 'ol3') {
       return <OpenLayers3Map {...mapProps} />
     } else {
-      return <MapboxGlMap {...mapProps}
-                          inspectModeEnabled={this.state.inspectModeEnabled}
-                          highlightedLayer={this.state.mapStyle.layers[this.state.selectedLayerIndex]}/>
+      return  <MapboxGlMap {...mapProps}
+        inspectModeEnabled={this.state.inspectModeEnabled}
+        highlightedLayer={this.state.mapStyle.layers[this.state.selectedLayerIndex]} />
     }
   }
 
   onLayerSelect(layerId) {
-    const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId);
-    this.setState({
-      selectedLayerIndex: idx
-    })
+    const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId)
+    this.setState({ selectedLayerIndex: idx })
   }
 
   render() {
-
-    const layers = this.state.mapStyle.layers || [];
-    const selectedLayer = layers.length > 0 ? layers[this.state.selectedLayerIndex] : null;
-    const metadata = this.state.mapStyle.metadata || {};
+    const layers = this.state.mapStyle.layers || []
+    const selectedLayer = layers.length > 0 ? layers[this.state.selectedLayerIndex] : null
+    const metadata = this.state.mapStyle.metadata || {}
 
     const toolbar = <Toolbar
       mapStyle={this.state.mapStyle}
@@ -243,7 +283,7 @@ export default class App extends React.Component {
       onStyleChanged={this.onStyleChanged.bind(this)}
       onStyleOpen={this.onStyleChanged.bind(this)}
       onInspectModeToggle={this.changeInspectMode.bind(this)}
-    />;
+    />
 
     const layerList = <LayerList
       onLayersChange={this.onLayersChange.bind(this)}
@@ -251,8 +291,7 @@ export default class App extends React.Component {
       selectedLayerIndex={this.state.selectedLayerIndex}
       layers={layers}
       sources={this.state.sources}
-    />;
-
+    />
 
     const layerEditor = selectedLayer ? <LayerEditor
       layer={selectedLayer}
@@ -261,12 +300,12 @@ export default class App extends React.Component {
       spec={this.state.spec}
       onLayerChanged={this.onLayerChanged.bind(this)}
       onLayerIdChange={this.onLayerIdChange.bind(this)}
-    /> : null;
+    /> : null
 
     const bottomPanel = (this.state.errors.length + this.state.infos.length) > 0 ? <MessagePanel
       errors={this.state.errors}
       infos={this.state.infos}
-    /> : null;
+    /> : null
 
     return <IntlProvider locale={currentLang} messages={messages[currentLang]}><AppLayout
       toolbar={toolbar}
