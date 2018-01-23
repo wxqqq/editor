@@ -28,12 +28,6 @@ messages["zh-CN"] = zh_CN;
 const languages = navigator.languages;
 const currentLang = languages[0];
 
-function renderLayerPopup(features) {
-  var mountNode = document.createElement('div');
-  ReactDOM.render(<FeatureLayerPopup features={features} />, mountNode)
-  return mountNode.innerHTML;
-}
-
 function renderPropertyPopup(features) {
   var mountNode = document.createElement('div');
   ReactDOM.render(<IntlProvider locale={currentLang} messages={messages[currentLang]}>
@@ -74,6 +68,7 @@ function buildInspectStyle(originalMapStyle, coloredLayers, highlightedLayer) {
 export default class MapboxGlMap extends React.Component {
   static propTypes = {
     onDataChange: PropTypes.func,
+    onLayerSelect: PropTypes.func.isRequired,
     mapStyle: PropTypes.object.isRequired,
     inspectModeEnabled: PropTypes.bool.isRequired,
     highlightedLayer: PropTypes.object,
@@ -82,6 +77,7 @@ export default class MapboxGlMap extends React.Component {
   static defaultProps = {
     onMapLoaded: () => {},
     onDataChange: () => {},
+    onLayerSelect: () => {},
     mapboxAccessToken: tokens.mapbox,
   }
 
@@ -167,7 +163,9 @@ export default class MapboxGlMap extends React.Component {
         if(this.props.inspectModeEnabled) {
           return renderPropertyPopup(features)
         } else {
-          return renderLayerPopup(features)
+          var mountNode = document.createElement('div');
+          ReactDOM.render(<FeatureLayerPopup features={features} onLayerSelect={this.props.onLayerSelect} />, mountNode)
+          return mountNode
         }
       }
     })

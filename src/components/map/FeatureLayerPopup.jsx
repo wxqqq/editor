@@ -4,18 +4,32 @@ import InputBlock from '../inputs/InputBlock'
 import StringInput from '../inputs/StringInput'
 import LayerIcon from '../icons/LayerIcon'
 
-
 function groupFeaturesBySourceLayer(features) {
   const sources = {}
+
+  let returnedFeatures = {};
+
   features.forEach(feature => {
-    sources[feature.layer['source-layer']] = sources[feature.layer['source-layer']] || []
-    sources[feature.layer['source-layer']].push(feature)
+    if(returnedFeatures.hasOwnProperty(feature.layer.id)) {
+      returnedFeatures[feature.layer.id]++
+      
+      const featureObject = sources[feature.layer['source-layer']].find(f => f.layer.id === feature.layer.id)
+
+      featureObject.counter = returnedFeatures[feature.layer.id]
+    } else {
+      sources[feature.layer['source-layer']] = sources[feature.layer['source-layer']] || []
+      sources[feature.layer['source-layer']].push(feature)
+
+      returnedFeatures[feature.layer.id] = 1
+    }
   })
+
   return sources
 }
 
 class FeatureLayerPopup extends React.Component {
   static propTypes = {
+    onLayerSelect: PropTypes.func.isRequired,
     features: PropTypes.array
   }
 
@@ -27,6 +41,9 @@ class FeatureLayerPopup extends React.Component {
         return <label
           key={idx}
           className="maputnik-popup-layer"
+          onClick={() => {
+            this.props.onLayerSelect(feature.layer.id)
+          }}
         >
           <LayerIcon type={feature.layer.type} style={{
             width: 14,
@@ -34,6 +51,7 @@ class FeatureLayerPopup extends React.Component {
             paddingRight: 3
           }}/>
           {feature.layer.id}
+          {feature.counter && <span> × {feature.counter}</span>}
         </label>
       })
       return <div key={vectorLayerId}>
