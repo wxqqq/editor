@@ -279,10 +279,6 @@ export default class App extends React.Component {
   onLayerSelect(layerId) {
     const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId)
     this.setState({ selectedLayerIndex: idx })
-    const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId);
-    this.setState({
-      selectedLayerIndex: idx
-    })
      let  m=  document.getElementsByClassName("maputnik-layout-drawer");
 
      m[0].style.transform= "translateX(0%)";//tjc 修改drawer面板样式
