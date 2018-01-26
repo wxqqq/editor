@@ -58,7 +58,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Maputnik',
+      title: 'MapDesigner',
       template: './src/template.html'
     }),
     new CopyWebpackPlugin([

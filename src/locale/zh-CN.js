@@ -2,11 +2,11 @@
  * @Author: wxq
  * @Date:   2017-09-21 16:17:09
  * @Last Modified by:   tangjuncheng1986
- * @Last Modified time: 2017-11-16 10:56:07
+ * @Last Modified time: 2018-01-25 18:03:38
  */
 const zh_CN = {
   //toolbar
-  'intl.projectName':"MapShow",
+  'intl.projectName':"MDesigner",
   //open
   'intl.open': "打开",
   'intl.Open Style': "打开样式",

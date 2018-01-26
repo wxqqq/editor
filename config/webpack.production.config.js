@@ -79,7 +79,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/template.html',
-      title: 'Maputnik'
+      title: 'MDesigner'
     }),
     new CopyWebpackPlugin([
       {

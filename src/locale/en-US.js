@@ -2,11 +2,11 @@
  * @Author: wxq
  * @Date:   2017-09-21 16:17:09
  * @Last Modified by:   tangjuncheng1986
- * @Last Modified time: 2017-11-16 10:51:18
+ * @Last Modified time: 2018-01-25 18:26:34
  */
 const en_US = {
   //toolbar
-  'intl.projectName':"Maputnik",
+  'intl.projectName':"MapDesigner",
   //open
   'intl.open': "open",
   'intl.Open Style': "Open Style",
