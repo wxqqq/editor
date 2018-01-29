@@ -12,14 +12,18 @@ import MessagePanel from './MessagePanel'
 import { downloadGlyphsMetadata, downloadSpriteMetadata } from '../libs/metadata'
 import styleSpec from '@mapbox/mapbox-gl-style-spec/style-spec'
 import style from '../libs/style.js'
-import {initialStyleUrl, loadStyleUrl} from '../libs/urlopen'
-import {undoMessages, redoMessages} from '../libs/diffmessage'
-import {loadDefaultStyle, StyleStore} from '../libs/stylestore'
-import {ApiStyleStore} from '../libs/apistore'
-import {RevisionStore} from '../libs/revisions'
+import { initialStyleUrl, loadStyleUrl } from '../libs/urlopen'
+import { undoMessages, redoMessages } from '../libs/diffmessage'
+import { loadDefaultStyle, StyleStore } from '../libs/stylestore'
+import { ApiStyleStore } from '../libs/apistore'
+import { RevisionStore } from '../libs/revisions'
 import LayerWatcher from '../libs/layerwatcher'
 import tokens from '../config/tokens.json'
 import isEqual from 'lodash.isequal'
+
+import MapboxGl from 'mapbox-gl'
+import mapboxUtil from 'mapbox-gl/src/util/mapbox'
+
 
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
@@ -49,20 +53,20 @@ function updateRootSpec(spec, fieldName, newValues) {
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.revisionStore = new RevisionStore();
+    super(props)
+    this.revisionStore = new RevisionStore()
     this.styleStore = new ApiStyleStore({
       onLocalStyleChange: mapStyle => this.onStyleChanged(mapStyle, false)
-    });
+    })
 
-    const styleUrl = initialStyleUrl();
-    if (styleUrl) {
-      this.styleStore = new StyleStore();
+    const styleUrl = initialStyleUrl()
+    if(styleUrl) {
+      this.styleStore = new StyleStore()
       loadStyleUrl(styleUrl, mapStyle => this.onStyleChanged(mapStyle))
     } else {
       this.styleStore.init(err => {
-        if (err) {
-          console.log('Falling back to local storage for storing styles');
+        if(err) {
+          console.log('Falling back to local storage for storing styles')
           this.styleStore = new StyleStore()
         }
         this.styleStore.latestStyle(mapStyle => this.onStyleChanged(mapStyle))
@@ -78,8 +82,7 @@ export default class App extends React.Component {
       vectorLayers: {},
       inspectModeEnabled: false,
       spec: styleSpec.latest,
-    };
-
+    }
 
     this.layerWatcher = new LayerWatcher({
       onVectorLayersChange: v => this.setState({ vectorLayers: v })
@@ -98,7 +101,7 @@ export default class App extends React.Component {
   }
 
   onReset() {
-    this.styleStore.purge();
+    this.styleStore.purge()
     loadDefaultStyle(mapStyle => this.onStyleOpen(mapStyle))
   }
 
@@ -107,20 +110,16 @@ export default class App extends React.Component {
   }
 
   updateFonts(urlTemplate) {
-    const metadata = this.state.mapStyle.metadata || {};
-    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles;
+    const metadata = this.state.mapStyle.metadata || {}
+    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles
     downloadGlyphsMetadata(urlTemplate.replace('{key}', accessToken), fonts => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'glyphs', fonts)
-      })
+      this.setState({ spec: updateRootSpec(this.state.spec, 'glyphs', fonts)})
     })
   }
 
   updateIcons(baseUrl) {
     downloadSpriteMetadata(baseUrl, icons => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'sprite', icons)
-      })
+      this.setState({ spec: updateRootSpec(this.state.spec, 'sprite', icons)})
     })
   }
 
@@ -217,7 +216,13 @@ export default class App extends React.Component {
       };
 
       if(!this.state.sources.hasOwnProperty(key) && val.type === "vector") {
-        const url = val.url;
+        let url = val.url;
+        try {
+          url = mapboxUtil.normalizeSourceURL(url, MapboxGl.accessToken);
+        } catch(err) {
+          console.warn("Failed to normalizeSourceURL: ", err);
+        }
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -271,11 +276,7 @@ export default class App extends React.Component {
         onLayerSelect={this.onLayerSelect.bind(this)} />
     }
   }
- /**
-  * [onLayerSelect description]图层选择 tjc 修改drawer面板样式
-  * @param  {[type]} layerId [description]图层id
-  * @return {[type]}         [description]
-  */
+
   onLayerSelect(layerId) {
     const idx = style.indexOfLayer(this.state.mapStyle.layers, layerId)
     this.setState({ selectedLayerIndex: idx })
