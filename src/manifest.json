@@ -1,7 +1,7 @@
 {
-  "name": "Maputnik",
-  "short_name": "Maputnik",
-  "description": "Visual Map Designer",
+  "name": "MapDesigner",
+  "short_name": "MapDesigner",
+  "description": "可视化地图设计器",
   "start_url": ".",
   "display": "browser",
   "background_color": "#1c1f24",

@@ -135,12 +135,12 @@ export default class Toolbar extends React.Component {
        /*{ href={"https://github.com/maputnik/editor"}}*/
         className="maputnik-toolbar-logo"
       >
-        <img src={logoImage} alt="Maputnik" />
-        <h1>
+        <img src={logoImage} alt="地图设计器" />
+        <h3>
         <FormattedMessage
           id="intl.projectName"
-          defaultMessage={'Maputnik'}
-        /></h1>
+          defaultMessage={'地图设计器'}
+        /></h3>
       </ToolbarLink>
         <div className="maputnik-toolbar__actions">
         <ToolbarAction onClick={this.toggleModal.bind(this, 'open')}>
