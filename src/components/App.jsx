@@ -12,11 +12,11 @@ import MessagePanel from './MessagePanel'
 import { downloadGlyphsMetadata, downloadSpriteMetadata } from '../libs/metadata'
 import styleSpec from '@mapbox/mapbox-gl-style-spec/style-spec'
 import style from '../libs/style.js'
-import {initialStyleUrl, loadStyleUrl} from '../libs/urlopen'
-import {undoMessages, redoMessages} from '../libs/diffmessage'
-import {loadDefaultStyle, StyleStore} from '../libs/stylestore'
-import {ApiStyleStore} from '../libs/apistore'
-import {RevisionStore} from '../libs/revisions'
+import { initialStyleUrl, loadStyleUrl } from '../libs/urlopen'
+import { undoMessages, redoMessages } from '../libs/diffmessage'
+import { loadDefaultStyle, StyleStore } from '../libs/stylestore'
+import { ApiStyleStore } from '../libs/apistore'
+import { RevisionStore } from '../libs/revisions'
 import LayerWatcher from '../libs/layerwatcher'
 import tokens from '../config/tokens.json'
 import isEqual from 'lodash.isequal'
@@ -52,20 +52,20 @@ function updateRootSpec(spec, fieldName, newValues) {
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.revisionStore = new RevisionStore();
+    super(props)
+    this.revisionStore = new RevisionStore()
     this.styleStore = new ApiStyleStore({
       onLocalStyleChange: mapStyle => this.onStyleChanged(mapStyle, false)
-    });
+    })
 
-    const styleUrl = initialStyleUrl();
-    if (styleUrl) {
-      this.styleStore = new StyleStore();
+    const styleUrl = initialStyleUrl()
+    if(styleUrl) {
+      this.styleStore = new StyleStore()
       loadStyleUrl(styleUrl, mapStyle => this.onStyleChanged(mapStyle))
     } else {
       this.styleStore.init(err => {
-        if (err) {
-          console.log('Falling back to local storage for storing styles');
+        if(err) {
+          console.log('Falling back to local storage for storing styles')
           this.styleStore = new StyleStore()
         }
         this.styleStore.latestStyle(mapStyle => this.onStyleChanged(mapStyle))
@@ -81,8 +81,7 @@ export default class App extends React.Component {
       vectorLayers: {},
       inspectModeEnabled: false,
       spec: styleSpec.latest,
-    };
-
+    }
 
     this.layerWatcher = new LayerWatcher({
       onVectorLayersChange: v => this.setState({ vectorLayers: v })
@@ -101,7 +100,7 @@ export default class App extends React.Component {
   }
 
   onReset() {
-    this.styleStore.purge();
+    this.styleStore.purge()
     loadDefaultStyle(mapStyle => this.onStyleOpen(mapStyle))
   }
 
@@ -110,33 +109,33 @@ export default class App extends React.Component {
   }
 
   updateFonts(urlTemplate) {
-    const metadata = this.state.mapStyle.metadata || {};
-    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles;
-    downloadGlyphsMetadata(urlTemplate.replace('{key}', accessToken), fonts => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'glyphs', fonts)
-      })
+    const metadata = this.state.mapStyle.metadata || {}
+    const accessToken = metadata['maputnik:openmaptiles_access_token'] || tokens.openmaptiles
+
+    let glyphUrl = (typeof urlTemplate === 'string')? urlTemplate.replace('{key}', accessToken): urlTemplate;
+    downloadGlyphsMetadata(glyphUrl, fonts => {
+      this.setState({ spec: updateRootSpec(this.state.spec, 'glyphs', fonts)})
     })
   }
 
   updateIcons(baseUrl) {
     downloadSpriteMetadata(baseUrl, icons => {
-      this.setState({
-        spec: updateRootSpec(this.state.spec, 'sprite', icons)
-      })
+      this.setState({ spec: updateRootSpec(this.state.spec, 'sprite', icons)})
     })
   }
 
   onStyleChanged(newStyle, save=true) {
-    if(newStyle.glyphs !== this.state.mapStyle.glyphs) {
-      this.updateFonts(newStyle.glyphs)
-    }
-    if(newStyle.sprite !== this.state.mapStyle.sprite) {
-      this.updateIcons(newStyle.sprite)
-    }
 
     const errors = styleSpec.validate(newStyle, styleSpec.latest)
     if(errors.length === 0) {
+
+      if(newStyle.glyphs !== this.state.mapStyle.glyphs) {
+        this.updateFonts(newStyle.glyphs)
+      }
+      if(newStyle.sprite !== this.state.mapStyle.sprite) {
+        this.updateIcons(newStyle.sprite)
+      }
+
       this.revisionStore.addRevision(newStyle)
       if(save) this.saveStyle(newStyle)
       this.setState({
@@ -219,7 +218,7 @@ export default class App extends React.Component {
         layers: []
       };
 
-      if(!this.state.sources.hasOwnProperty(key) && val.type === "vector") {
+      if(!this.state.sources.hasOwnProperty(key) && val.type === "vector" && val.hasOwnProperty("url")) {
         let url = val.url;
         try {
           url = mapboxUtil.normalizeSourceURL(url, MapboxGl.accessToken);
@@ -232,6 +231,10 @@ export default class App extends React.Component {
             return response.json();
           })
           .then((json) => {
+            if(!json.hasOwnProperty("vector_layers")) {
+              return;
+            }
+
             // Create new objects before setState
             const sources = Object.assign({}, this.state.sources);
 
@@ -260,7 +263,7 @@ export default class App extends React.Component {
 
   mapRenderer() {
     const mapProps = {
-      mapStyle: style.replaceAccessToken(this.state.mapStyle),
+      mapStyle: style.replaceAccessToken(this.state.mapStyle, {allowFallback: true}),
       onDataChange: (e) => {
         this.layerWatcher.analyzeMap(e.map)
         this.fetchSources();

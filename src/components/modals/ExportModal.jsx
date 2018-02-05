@@ -27,6 +27,7 @@ class Gist extends React.Component {
     super(props);
     this.state = {
       preview: false,
+      public: false,
       saving: false,
       latestGist: null,
     }
@@ -44,7 +45,10 @@ class Gist extends React.Component {
       ...this.state,
       saving: true
     });
-    const preview = this.state.preview && (this.props.mapStyle.metadata || {})['maputnik:openmaptiles_access_token'];
+
+    const preview = this.state.preview;
+    
+    const mapboxToken = (this.props.mapStyle.metadata || {})['maputnik:mapbox_access_token'];
 
     const mapStyleStr = preview ?
         styleSpec.format(stripAccessTokens(style.replaceAccessToken(this.props.mapStyle))) :
@@ -57,8 +61,8 @@ class Gist extends React.Component {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>`+styleTitle+` Preview</title>
-    <link rel="stylesheet" type="text/css" href="https://api.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.css" />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
     <style>
       body { margin:0; padding:0; }
       #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -67,6 +71,7 @@ class Gist extends React.Component {
   <body>
     <div id='map'></div>
     <script>
+        mapboxgl.accessToken = '${mapboxToken}';
         var map = new mapboxgl.Map({
           container: 'map',
           style: 'style.json',
@@ -91,7 +96,7 @@ class Gist extends React.Component {
     const gh = new GitHub();
     let gist = gh.getGist(); // not a gist yet
     gist.create({
-      public: true,
+      public: this.state.public,
       description: styleTitle,
       files: files
     }).then(function({data}) {
@@ -109,6 +114,13 @@ class Gist extends React.Component {
     this.setState({
       ...this.state,
       preview: value
+    })
+  }
+
+  onPublicChange(value) {
+    this.setState({
+      ...this.state,
+      public: value
     })
   }
 
@@ -164,13 +176,22 @@ class Gist extends React.Component {
         <MdFileDownload />
         Save to Gist (anonymous)
       </Button>
-      {' '}
-      <CheckboxInput
-        value={this.state.preview}
-        name='gist-style-preview'
-        onChange={this.onPreviewChange.bind(this)}
-      />
-      <span> Include preview</span>
+      <div className="maputnik-modal-sub-section">
+        <CheckboxInput
+          value={this.state.public}
+          name='gist-style-public'
+          onChange={this.onPublicChange.bind(this)}
+        />
+        <span> Public gist</span>
+      </div>
+      <div className="maputnik-modal-sub-section">
+        <CheckboxInput
+          value={this.state.preview}
+          name='gist-style-preview'
+          onChange={this.onPreviewChange.bind(this)}
+        />
+        <span> Include preview</span>
+      </div>
       {this.state.preview ?
           <div>
             <InputBlock
@@ -178,6 +199,12 @@ class Gist extends React.Component {
               <StringInput
                   value={(this.props.mapStyle.metadata || {})['maputnik:openmaptiles_access_token']}
                   onChange={this.changeMetadataProperty.bind(this, "maputnik:openmaptiles_access_token")}/>
+            </InputBlock>
+            <InputBlock
+                label={"Mapbox Access Token: "}>
+              <StringInput
+                  value={(this.props.mapStyle.metadata || {})['maputnik:mapbox_access_token']}
+                  onChange={this.changeMetadataProperty.bind(this, "maputnik:mapbox_access_token")}/>
             </InputBlock>
             <a target="_blank" rel="noopener noreferrer" href="https://openmaptiles.com/hosting/">Get your free access token</a>
           </div>

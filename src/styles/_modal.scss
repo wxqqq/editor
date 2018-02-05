@@ -21,6 +21,10 @@
   flex-shrink: 0;
 }
 
+.maputnik-modal-sub-section {
+  margin-top: $margin-1;
+}
+
 .maputnik-modal-section--shrink {
   flex-shrink: 1;
 }
@@ -76,6 +80,7 @@
   position: fixed;
   align-items: center;
   justify-content: center;
+  z-index: 9;
 
   @include flex-row;
 }
