@@ -138,7 +138,7 @@ export default class Toolbar extends React.Component {
           className="maputnik-toolbar-logo"
         >
           <img src={logoImage} alt="Maputnik" />
-          <h1>Maputnik
+          <h1>{pkgJson.name}
             <span className="maputnik-toolbar-version">v{pkgJson.version}</span>
           </h1>
         </ToolbarLink>

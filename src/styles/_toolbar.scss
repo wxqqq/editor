@@ -16,7 +16,7 @@
   padding: $margin-2;
   height: $toolbar-height;
 
-  h3 {
+  h1 {
     display: inline;
   }
 
@@ -40,6 +40,7 @@
 
   h1 {
     position: relative;
+    text-transform: capitalize;
   }
 
   &:hover {
