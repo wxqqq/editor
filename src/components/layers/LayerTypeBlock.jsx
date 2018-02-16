@@ -23,6 +23,7 @@ class LayerTypeBlock extends React.Component {
           ['raster', 'Raster'],
           ['circle', 'Circle'],
           ['fill-extrusion', 'Fill Extrusion'],
+          ['hillshade', 'Hillshade'],
         ]}
         onChange={this.props.onChange}
         value={this.props.value}
